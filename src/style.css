@@ -78,3 +78,43 @@ body {
   justify-content: center;
   min-height: 100vh;
 }
+
+.home-grid {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-template-rows: auto 1fr;
+  gap: 16px;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.home-grid__badge {
+  grid-row: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 36px;
+  padding-bottom: 6px;
+}
+
+.home-grid__bio {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-geist-mono);
+  font-size: 0.8rem;
+}
+
+.home-grid__work {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-geist-mono);
+  font-size: 0.8rem;
+}
