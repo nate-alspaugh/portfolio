@@ -6,18 +6,28 @@ template.innerHTML = `
   <style>
     @property --mx {
       syntax: '<percentage>';
-      inherits: false;
+      inherits: true;
       initial-value: 50%;
     }
     @property --my {
       syntax: '<percentage>';
-      inherits: false;
+      inherits: true;
       initial-value: 30%;
     }
 
     :host {
       display: block;
+    }
+
+    @keyframes card-enter {
+      from { opacity: 0; transform: translateY(60px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Entrance wrapper owns translate/opacity so it can't fight GSAP's tilt on .key-card */
+    .entrance-stage {
       perspective: 800px;
+      animation: card-enter 0.9s cubic-bezier(0.33, 1, 0.68, 1) 0.2s both;
     }
 
     .key-card {
@@ -28,25 +38,102 @@ template.innerHTML = `
       overflow: visible;
       display: flex;
       flex-direction: column;
-      padding: 56px 24px 28px;
+      padding: 28px 24px 28px;
       transform-style: preserve-3d;
       will-change: transform;
       cursor: default;
       box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
     }
 
-    /* Notch cutout at top center — rectangular lanyard slot */
-    .notch {
+    /* Laminate plastic sleeve — pouch extends above the card for lanyard slot */
+    .laminate {
       position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 48px;
-      height: 10px;
-      background: #151614;
-      border-radius: 8px;
-      z-index: 10;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+      top: -36px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      border-radius: 16px 16px 28px 28px;
+      pointer-events: none;
+      z-index: 8;
+      background: linear-gradient(
+        175deg,
+        rgba(255,255,255,0.05) 0%,
+        rgba(255,255,255,0.015) 100%
+      );
+      /* Edge seam — heat-sealed border of the laminate pouch */
+      box-shadow:
+        inset 0 0 0 1.5px rgba(255,255,255,0.13),
+        inset 0 0 0 3px rgba(255,255,255,0.04),
+        0 0 0 1px rgba(0,0,0,0.08);
+      /* Subtle plastic refraction */
+      backdrop-filter: blur(0.3px);
+      -webkit-backdrop-filter: blur(0.3px);
+      overflow: hidden;
+      /* Lanyard slot punched through the plastic above the card */
+      -webkit-mask-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='14'%3E%3Crect width='40' height='14' rx='7' fill='black'/%3E%3C/svg%3E"),
+        linear-gradient(#fff,#fff);
+      -webkit-mask-size: 40px 14px, 100% 100%;
+      -webkit-mask-position: center 11px, center center;
+      -webkit-mask-repeat: no-repeat, no-repeat;
+      -webkit-mask-composite: destination-out;
+      mask-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='14'%3E%3Crect width='40' height='14' rx='7' fill='black'/%3E%3C/svg%3E"),
+        linear-gradient(#fff,#fff);
+      mask-size: 40px 14px, 100% 100%;
+      mask-position: center 11px, center center;
+      mask-repeat: no-repeat, no-repeat;
+      mask-composite: exclude;
+    }
+
+    /* Fresnel rim + micro-scratch texture */
+    .laminate::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        /* Fresnel rim — edges more reflective than center */
+        radial-gradient(
+          ellipse 60% 65% at 50% 50%,
+          transparent 50%,
+          rgba(255,255,255,0.08) 70%,
+          rgba(255,255,255,0.16) 85%,
+          rgba(255,255,255,0.22) 100%
+        ),
+        /* Micro-scratch texture — fine diagonal lines */
+        repeating-linear-gradient(
+          -35deg,
+          transparent 0px,
+          transparent 3px,
+          rgba(255,255,255,0.02) 3px,
+          rgba(255,255,255,0.02) 4px
+        ),
+        repeating-linear-gradient(
+          55deg,
+          transparent 0px,
+          transparent 7px,
+          rgba(255,255,255,0.015) 7px,
+          rgba(255,255,255,0.015) 8px
+        );
+      pointer-events: none;
+    }
+
+    /* Mouse-tracking specular hotspot on laminate surface */
+    .laminate::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        circle 140px at var(--mx) var(--my),
+        rgba(255,255,255,0.2) 0%,
+        rgba(255,255,255,0.07) 25%,
+        transparent 55%
+      );
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      transition: --mx 0.1s ease-out, --my 0.1s ease-out;
     }
 
     /* ASCII texture overlay */
@@ -140,86 +227,42 @@ template.innerHTML = `
       margin: 0;
     }
 
-    .socials {
-      position: relative;
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      padding-top: 16px;
-      z-index: 6;
-    }
-
-    .social-btn {
+    .location {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 8px 10px;
-      border: none;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.10);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: #151614;
+      gap: 3px;
       font-family: 'Geist Mono', monospace;
-      font-size: 0.75rem;
+      font-size: 0.65rem;
       font-weight: 500;
-      cursor: pointer;
-      transition: background 0.15s ease;
-      text-decoration: none;
-      line-height: 1;
+      text-transform: uppercase;
+      color: rgba(21, 22, 20, 0.45);
+      margin: 6px 0 0;
     }
 
-    .social-btn:hover {
-      background: rgba(255, 255, 255, 0.20);
-    }
-
-    .social-btn svg {
-      width: 18px;
-      height: 18px;
-      fill: #151614;
+    .location svg {
+      width: 12px;
+      height: 12px;
+      fill: rgba(21, 22, 20, 0.45);
       flex-shrink: 0;
     }
 
-    .toast {
-      position: absolute;
-      bottom: -44px;
-      left: 50%;
-      transform: translateX(-50%) translateY(8px);
-      background: #151614;
-      color: #fff;
-      font-family: 'Geist Mono', monospace;
-      font-size: 0.7rem;
-      padding: 8px 14px;
-      border-radius: 10px;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      z-index: 20;
-    }
   </style>
 
-  <div class="key-card">
-    <div class="notch"></div>
-    <div class="photo-frame">
-      <img class="photo" alt="Nathan Alspaugh" />
+  <div class="entrance-stage">
+    <div class="key-card">
+      <div class="photo-frame">
+        <img class="photo" alt="Nathan Alspaugh" />
+      </div>
+      <div class="info">
+        <h1 class="name">Nathan Alspaugh</h1>
+        <p class="title">Sr. Product Designer</p>
+        <p class="location">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path d="M128,16a88.1,88.1,0,0,0-88,88c0,75.3,80,132.17,83.41,134.55a8,8,0,0,0,9.18,0C136,236.17,216,179.3,216,104A88.1,88.1,0,0,0,128,16Zm0,56a32,32,0,1,1-32,32A32,32,0,0,1,128,72Z"/></svg>
+          Bountiful, UT
+        </p>
+      </div>
+      <div class="laminate"></div>
     </div>
-    <div class="info">
-      <h1 class="name">Nathan Alspaugh</h1>
-      <p class="title">Sr. Product Designer</p>
-    </div>
-    <div class="socials">
-      <a class="social-btn" href="https://www.linkedin.com/in/nathan-alspaugh/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path d="M216,20H40A20,20,0,0,0,20,40V216a20,20,0,0,0,20,20H216a20,20,0,0,0,20-20V40A20,20,0,0,0,216,20ZM44,44H212V212H44ZM112,176V124a12,12,0,0,1,21.43-7.41A40,40,0,0,1,192,152v24a12,12,0,0,1-24,0V152a16,16,0,0,0-32,0v24a12,12,0,0,1-24,0ZM96,124v52a12,12,0,0,1-24,0V124a12,12,0,0,1,24,0ZM84,92A16,16,0,1,1,100,76,16,16,0,0,1,84,92Z"/></svg>
-      </a>
-      <a class="social-btn" href="https://dribbble.com/nathan-alspaugh" target="_blank" rel="noopener noreferrer" aria-label="Dribbble">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm83.13,65.27a83.92,83.92,0,0,1,8.17,20.45c-20.11,2.08-42.13,1-60.79-3A175.14,175.14,0,0,0,211.13,85.27Zm-18-17.28A84,84,0,0,1,137.8,44.34a163.18,163.18,0,0,0,27.48,28.76Q175.8,71.74,193.14,68Zm-78-22.45A84.31,84.31,0,0,1,128,44h1.63a187.26,187.26,0,0,1-31.75,33.48A192.52,192.52,0,0,1,115.16,45.54Zm-23.07,9.7A168.52,168.52,0,0,0,73.41,89.75,84.15,84.15,0,0,1,92.09,55.24Zm-38,53A84,84,0,0,1,56.22,96.5a192,192,0,0,0,37-4.93A216.38,216.38,0,0,1,69.14,128h-12C55.57,118.49,54.26,113.55,54.1,108.24Zm2.15,32.27A84.24,84.24,0,0,1,44,128c0-1.22,0-2.43.08-3.64A107.4,107.4,0,0,0,69.14,128h0a216.38,216.38,0,0,1-12.89,12.51Zm99.24,67.68A84,84,0,0,1,82.41,196.7a152.27,152.27,0,0,1,43-43.18,199.91,199.91,0,0,1,30.09,55.67Zm23.27-7.06a199.49,199.49,0,0,0-25.16-48.15c13.3-5,28.32-7.18,44.47-6.38A84.09,84.09,0,0,1,178.76,201.13Zm-56.32-64.25A128.18,128.18,0,0,0,75,181.63a84.24,84.24,0,0,1-14.72-24.14A191.38,191.38,0,0,0,93.14,128a192.61,192.61,0,0,0,29.3,8.88Z"/></svg>
-      </a>
-      <button class="social-btn" id="copy-email">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path d="M224,44H32A12,12,0,0,0,20,56V192a20,20,0,0,0,20,20H216a20,20,0,0,0,20-20V56A12,12,0,0,0,224,44ZM193.15,68,128,127.72,62.85,68ZM44,188V83.28l75.89,69.57a12,12,0,0,0,16.22,0L212,83.28V188Z"/></svg>
-        Copy email
-      </button>
-    </div>
-    <div class="toast" id="toast">nate.alspaugh18@gmail.com was copied to your clipboard</div>
   </div>
 `;
 
@@ -230,7 +273,6 @@ class KeyCard extends HTMLElement {
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     this._card = null;
-    this._photoFrame = null;
     this._onMouseMove = this._onMouseMove.bind(this);
     this._onMouseLeave = this._onMouseLeave.bind(this);
   }
@@ -240,25 +282,8 @@ class KeyCard extends HTMLElement {
     photo.src = cutoutUrl;
 
     this._card = this.shadowRoot.querySelector('.key-card');
-    this._photoFrame = this.shadowRoot.querySelector('.photo-frame');
     this._card.addEventListener('mousemove', this._onMouseMove);
     this._card.addEventListener('mouseleave', this._onMouseLeave);
-
-    // Copy email button
-    const copyBtn = this.shadowRoot.querySelector('#copy-email');
-    const toast = this.shadowRoot.querySelector('#toast');
-    copyBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText('nate.alspaugh18@gmail.com');
-      gsap.killTweensOf(toast);
-      gsap.fromTo(toast,
-        { opacity: 0, y: 8 },
-        { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out',
-          onComplete: () => {
-            gsap.to(toast, { opacity: 0, y: 8, duration: 0.25, ease: 'power2.in', delay: 2 });
-          }
-        }
-      );
-    });
 
     this._animate();
   }
@@ -278,11 +303,9 @@ class KeyCard extends HTMLElement {
     this._card.style.setProperty('--mx', `${x}%`);
     this._card.style.setProperty('--my', `${y}%`);
 
-    // 3D tilt (tweaker overrides if present)
-    const tiltXStrength = this._tweakerTiltX ?? 0.15;
-    const tiltYStrength = this._tweakerTiltY ?? 0.1;
-    const rotateY = (x - 50) * tiltXStrength;
-    const rotateX = (y - 50) * -tiltYStrength;
+    // 3D tilt (1/8th original intensity)
+    const rotateY = (x - 50) * 0.01875;
+    const rotateX = (y - 50) * -0.0125;
     gsap.to(this._card, {
       rotateX,
       rotateY,
@@ -291,15 +314,6 @@ class KeyCard extends HTMLElement {
       overwrite: 'auto',
     });
 
-    // Parallax offset on photo (tweaker overrides if present)
-    const parallaxStrength = this._tweakerParallax ?? 0.045;
-    gsap.to(this._photoFrame, {
-      x: (x - 50) * -parallaxStrength,
-      y: (y - 50) * -parallaxStrength,
-      duration: 0.3,
-      ease: 'power2.out',
-      overwrite: 'auto',
-    });
   }
 
   _onMouseLeave() {
@@ -313,36 +327,19 @@ class KeyCard extends HTMLElement {
       ease: 'power2.out',
       overwrite: 'auto',
     });
-
-    gsap.to(this._photoFrame, {
-      x: 0,
-      y: 0,
-      duration: 0.5,
-      ease: 'power2.out',
-      overwrite: 'auto',
-    });
   }
 
   _animate() {
-    const tl = gsap.timeline();
-
-    // Entrance
-    tl.from(this._card, {
-      y: 60,
-      opacity: 0,
-      duration: 0.9,
-      ease: 'power3.out',
-      delay: 0.2,
-    });
-
-    // Idle float
-    this._floatTween = tl.to(this._card, {
-      y: -8,
-      duration: 2.5,
-      ease: 'sine.inOut',
-      yoyo: true,
-      repeat: -1,
-    });
+    // Idle float starts after CSS entrance animation completes (0.2s delay + 0.9s duration)
+    setTimeout(() => {
+      this._floatTween = gsap.to(this._card, {
+        y: -8,
+        duration: 2.5,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
+      });
+    }, 1100);
   }
 }
 
