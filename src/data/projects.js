@@ -100,6 +100,7 @@ From there, a second insight locked the design in: the canvas isn't paired with 
     title: 'Particle — Component-Forge Skill',
     accent: '#00e6c8',
     year: '2025',
+    comingSoon: true,
   },
   {
     slug: 'voze-mobile-app-redesign',
@@ -107,6 +108,7 @@ From there, a second insight locked the design in: the canvas isn't paired with 
     accent: '#e6399b',
     year: '2024',
     heroImage: vozeHero,
+    comingSoon: true,
   },
 ];
 
