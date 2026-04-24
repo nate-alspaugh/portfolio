@@ -1,20 +1,46 @@
 import './style.css'
 import './components/key-card.js'
 import './components/main-nav.js'
+import './components/home-bio.js'
+import './components/work-list.js'
+import './components/contact-links.js'
+import './pages/case-study.js'
+import { parseRoute, onRouteChange } from './router.js'
 
-document.querySelector('#app').innerHTML = `
-  <main-nav></main-nav>
-  <section class="hero">
-    <div class="home-grid">
-      <div class="home-grid__badge">
-        <key-card></key-card>
+const app = document.querySelector('#app');
+
+function renderHome() {
+  app.innerHTML = `
+    <section class="hero">
+      <div class="hero-name" aria-hidden="true">
+        <span>Nathan</span>
+        <span>Alspaugh</span>
       </div>
-      <div class="home-grid__bio">
-        <span>bio</span>
+      <div class="home-grid">
+        <home-bio class="home-grid__bio"></home-bio>
+        <div class="home-grid__badge">
+          <key-card></key-card>
+        </div>
+        <div class="home-grid__right">
+          <work-list></work-list>
+          <contact-links></contact-links>
+        </div>
       </div>
-      <div class="home-grid__work">
-        <span>work</span>
-      </div>
-    </div>
-  </section>
-`;
+    </section>
+  `;
+}
+
+function renderCaseStudy(slug) {
+  app.innerHTML = `<case-study-page slug="${slug}"></case-study-page>`;
+}
+
+function render(route) {
+  if (route.name === 'case-study') {
+    renderCaseStudy(route.slug);
+  } else {
+    renderHome();
+  }
+}
+
+render(parseRoute());
+onRouteChange(render);

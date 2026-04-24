@@ -32,7 +32,7 @@ template.innerHTML = `
 
     .key-card {
       position: relative;
-      width: 340px;
+      width: clamp(220px, min(26vw, 45vh), 400px);
       border-radius: 24px;
       background: #99cc00;
       overflow: visible;

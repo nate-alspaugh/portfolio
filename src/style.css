@@ -1,3 +1,6 @@
+/* Pirata One - display (Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
+
 /* Geist Mono - Variable */
 @font-face {
   font-family: 'Geist Mono';
@@ -61,11 +64,16 @@
   --font-panchang: 'Panchang', sans-serif;
   --font-geist-mono: 'Geist Mono', ui-monospace, SFMono-Regular, 'Roboto Mono', Menlo, Monaco, 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
   --font-geist-pixel: 'Geist Pixel Square', 'Geist Mono', monospace;
+  --font-pirata: 'Pirata One', serif;
 }
 
 body {
   margin: 0;
   background-color: #151614;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
 }
 
 #app {
@@ -73,48 +81,141 @@ body {
 }
 
 .hero {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 720px;
+  padding: 0;
+  overflow: clip;
+}
+
+/* Huge outlined display name sitting behind the key card */
+.hero-name {
+  position: absolute;
+  top: clamp(16px, 3.5vh, 48px);
+  left: 50%;
+  translate: -50%;
+  display: flex;
+  gap: clamp(40px, 11vw, 169px);
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.hero-name span {
+  font-family: var(--font-pirata);
+  font-weight: 400;
+  font-size: clamp(96px, 14vw, 208px);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.15);
 }
 
 .home-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
-  grid-template-columns: 2fr 3fr;
-  grid-template-rows: auto 1fr;
-  gap: 16px;
-  width: 90%;
-  max-width: 1200px;
+  grid-template-columns: minmax(0, 372px) auto minmax(0, 408px);
+  align-items: stretch;
+  gap: clamp(24px, 4vw, 48px);
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 clamp(24px, 4vw, 56px);
+  box-sizing: border-box;
+}
+
+/* Side columns stretch to the card-row height and pad their top so content
+   starts ~28% down — matching the y-positions in the Paper design. */
+.home-grid__bio,
+.home-grid__right {
+  min-width: 0;
+  padding-top: clamp(110px, 22vh, 200px);
+  padding-bottom: clamp(30px, 5vh, 60px);
+  box-sizing: border-box;
 }
 
 .home-grid__badge {
-  grid-row: 1 / -1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 36px;
-  padding-bottom: 6px;
+  min-width: 0;
 }
 
-.home-grid__bio {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+.home-grid__right {
   display: flex;
-  align-items: center;
-  padding: 0 20px;
-  color: rgba(255, 255, 255, 0.4);
-  font-family: var(--font-geist-mono);
-  font-size: 0.8rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: clamp(40px, 9vh, 80px);
 }
 
-.home-grid__work {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.4);
-  font-family: var(--font-geist-mono);
-  font-size: 0.8rem;
+@media (max-width: 1023px) {
+  .hero {
+    height: auto;
+    min-height: 100vh;
+    padding: 96px 0 48px;
+    overflow: visible;
+  }
+
+  .home-grid {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: start;
+    gap: clamp(24px, 3vw, 40px) clamp(28px, 4vw, 48px);
+    max-width: 880px;
+    padding: 0 clamp(24px, 4vw, 56px);
+  }
+
+  .home-grid__bio,
+  .home-grid__right {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .home-grid__right {
+    gap: clamp(24px, 5vh, 40px);
+  }
+
+  .home-grid__badge {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: start;
+  }
+
+  .home-grid__bio {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .home-grid__right {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .hero-name {
+    top: 120px;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 56px;
+    padding: 0 32px;
+    max-width: 560px;
+  }
+
+  .home-grid__badge,
+  .home-grid__bio,
+  .home-grid__right {
+    grid-column: 1;
+    grid-row: auto;
+    align-self: auto;
+  }
+
+  .home-grid__badge {
+    order: -1;
+  }
 }
