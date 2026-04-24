@@ -6,8 +6,19 @@ import './components/work-list.js'
 import './components/contact-links.js'
 import './pages/case-study.js'
 import { parseRoute, onRouteChange } from './router.js'
+import { projects } from './data/projects.js'
 
 const app = document.querySelector('#app');
+const BASE_TITLE = 'Nathan Alspaugh | AI-Native Sr. Product Designer';
+
+function setTitle(route) {
+  if (route.name === 'case-study') {
+    const project = projects.find((p) => p.slug === route.slug);
+    document.title = project ? `Nathan Alspaugh | ${project.title}` : BASE_TITLE;
+  } else {
+    document.title = BASE_TITLE;
+  }
+}
 
 function renderHome() {
   app.innerHTML = `
@@ -35,6 +46,7 @@ function renderCaseStudy(slug) {
 }
 
 function render(route) {
+  setTitle(route);
   if (route.name === 'case-study') {
     renderCaseStudy(route.slug);
   } else {
