@@ -2,47 +2,134 @@
   <style>
     @property --mx {
       syntax: '<percentage>';
-      inherits: false;
+      inherits: true;
       initial-value: 50%;
     }
     @property --my {
       syntax: '<percentage>';
-      inherits: false;
+      inherits: true;
       initial-value: 30%;
     }
 
     :host {
       display: block;
+    }
+
+    @keyframes card-enter {
+      from { opacity: 0; transform: translateY(60px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Entrance wrapper owns translate/opacity so it can't fight GSAP's tilt on .key-card */
+    .entrance-stage {
       perspective: 800px;
+      animation: card-enter 0.9s cubic-bezier(0.33, 1, 0.68, 1) 0.2s both;
     }
 
     .key-card {
       position: relative;
-      width: 340px;
+      width: clamp(220px, min(26vw, 45vh), 400px);
       border-radius: 24px;
       background: #99cc00;
       overflow: visible;
       display: flex;
       flex-direction: column;
-      padding: 56px 24px 28px;
+      padding: 28px 24px 28px;
       transform-style: preserve-3d;
       will-change: transform;
       cursor: default;
       box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
     }
 
-    /* Notch cutout at top center — rectangular lanyard slot */
-    .notch {
+    /* Laminate plastic sleeve — pouch extends above the card for lanyard slot */
+    .laminate {
       position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 48px;
-      height: 10px;
-      background: #151614;
-      border-radius: 8px;
-      z-index: 10;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+      top: -36px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      border-radius: 16px 16px 28px 28px;
+      pointer-events: none;
+      z-index: 8;
+      background: linear-gradient(
+        175deg,
+        rgba(255,255,255,0.05) 0%,
+        rgba(255,255,255,0.015) 100%
+      );
+      /* Edge seam — heat-sealed border of the laminate pouch */
+      box-shadow:
+        inset 0 0 0 1.5px rgba(255,255,255,0.13),
+        inset 0 0 0 3px rgba(255,255,255,0.04),
+        0 0 0 1px rgba(0,0,0,0.08);
+      /* Subtle plastic refraction */
+      backdrop-filter: blur(0.3px);
+      -webkit-backdrop-filter: blur(0.3px);
+      overflow: hidden;
+      /* Lanyard slot punched through the plastic above the card */
+      -webkit-mask-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='14'%3E%3Crect width='40' height='14' rx='7' fill='black'/%3E%3C/svg%3E"),
+        linear-gradient(#fff,#fff);
+      -webkit-mask-size: 40px 14px, 100% 100%;
+      -webkit-mask-position: center 11px, center center;
+      -webkit-mask-repeat: no-repeat, no-repeat;
+      -webkit-mask-composite: destination-out;
+      mask-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='14'%3E%3Crect width='40' height='14' rx='7' fill='black'/%3E%3C/svg%3E"),
+        linear-gradient(#fff,#fff);
+      mask-size: 40px 14px, 100% 100%;
+      mask-position: center 11px, center center;
+      mask-repeat: no-repeat, no-repeat;
+      mask-composite: exclude;
+    }
+
+    /* Fresnel rim + micro-scratch texture */
+    .laminate::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        /* Fresnel rim — edges more reflective than center */
+        radial-gradient(
+          ellipse 60% 65% at 50% 50%,
+          transparent 50%,
+          rgba(255,255,255,0.08) 70%,
+          rgba(255,255,255,0.16) 85%,
+          rgba(255,255,255,0.22) 100%
+        ),
+        /* Micro-scratch texture — fine diagonal lines */
+        repeating-linear-gradient(
+          -35deg,
+          transparent 0px,
+          transparent 3px,
+          rgba(255,255,255,0.02) 3px,
+          rgba(255,255,255,0.02) 4px
+        ),
+        repeating-linear-gradient(
+          55deg,
+          transparent 0px,
+          transparent 7px,
+          rgba(255,255,255,0.015) 7px,
+          rgba(255,255,255,0.015) 8px
+        );
+      pointer-events: none;
+    }
+
+    /* Mouse-tracking specular hotspot on laminate surface */
+    .laminate::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        circle 140px at var(--mx) var(--my),
+        rgba(255,255,255,0.2) 0%,
+        rgba(255,255,255,0.07) 25%,
+        transparent 55%
+      );
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      transition: --mx 0.1s ease-out, --my 0.1s ease-out;
     }
 
     /* ASCII texture overlay */
@@ -136,89 +223,830 @@
       margin: 0;
     }
 
-    .socials {
-      position: relative;
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      padding-top: 16px;
-      z-index: 6;
-    }
-
-    .social-btn {
+    .location {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 8px 10px;
-      border: none;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.10);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: #151614;
+      gap: 3px;
       font-family: 'Geist Mono', monospace;
-      font-size: 0.75rem;
+      font-size: 0.65rem;
       font-weight: 500;
-      cursor: pointer;
-      transition: background 0.15s ease;
-      text-decoration: none;
-      line-height: 1;
+      text-transform: uppercase;
+      color: rgba(21, 22, 20, 0.45);
+      margin: 6px 0 0;
     }
 
-    .social-btn:hover {
-      background: rgba(255, 255, 255, 0.20);
-    }
-
-    .social-btn svg {
-      width: 18px;
-      height: 18px;
-      fill: #151614;
+    .location svg {
+      width: 12px;
+      height: 12px;
+      fill: rgba(21, 22, 20, 0.45);
       flex-shrink: 0;
     }
 
-    .toast {
-      position: absolute;
-      bottom: -44px;
+  </style>
+
+  <div class="entrance-stage">
+    <div class="key-card">
+      <div class="photo-frame">
+        <img class="photo" alt="Nathan Alspaugh" />
+      </div>
+      <div class="info">
+        <h1 class="name">Nathan Alspaugh</h1>
+        <p class="title">Sr. Product Designer</p>
+        <p class="location">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path d="M128,16a88.1,88.1,0,0,0-88,88c0,75.3,80,132.17,83.41,134.55a8,8,0,0,0,9.18,0C136,236.17,216,179.3,216,104A88.1,88.1,0,0,0,128,16Zm0,56a32,32,0,1,1-32,32A32,32,0,0,1,128,72Z"/></svg>
+          Bountiful, UT
+        </p>
+      </div>
+      <div class="laminate"></div>
+    </div>
+  </div>
+`;var di=class extends HTMLElement{constructor(){super(),this.attachShadow({mode:`open`}),this.shadowRoot.appendChild(ui.content.cloneNode(!0)),this._card=null,this._onMouseMove=this._onMouseMove.bind(this),this._onMouseLeave=this._onMouseLeave.bind(this)}connectedCallback(){let e=this.shadowRoot.querySelector(`.photo`);e.src=li,this._card=this.shadowRoot.querySelector(`.key-card`),this._card.addEventListener(`mousemove`,this._onMouseMove),this._card.addEventListener(`mouseleave`,this._onMouseLeave),this._animate()}disconnectedCallback(){this._card&&(this._card.removeEventListener(`mousemove`,this._onMouseMove),this._card.removeEventListener(`mouseleave`,this._onMouseLeave))}_onMouseMove(e){let t=this._card.getBoundingClientRect(),n=(e.clientX-t.left)/t.width*100,r=(e.clientY-t.top)/t.height*100;this._card.style.setProperty(`--mx`,`${n}%`),this._card.style.setProperty(`--my`,`${r}%`);let i=(n-50)*.01875,a=(r-50)*-.0125;ci.to(this._card,{rotateX:a,rotateY:i,duration:.3,ease:`power2.out`,overwrite:`auto`})}_onMouseLeave(){this._card.style.setProperty(`--mx`,`50%`),this._card.style.setProperty(`--my`,`30%`),ci.to(this._card,{rotateX:0,rotateY:0,duration:.5,ease:`power2.out`,overwrite:`auto`})}_animate(){setTimeout(()=>{this._floatTween=ci.to(this._card,{y:-8,duration:2.5,ease:`sine.inOut`,yoyo:!0,repeat:-1})},1100)}};customElements.define(`key-card`,di);var fi=document.createElement(`template`);fi.innerHTML=`
+  <style>
+    :host {
+      display: block;
+      position: fixed;
+      top: 16px;
       left: 50%;
-      transform: translateX(-50%) translateY(8px);
-      background: #151614;
+      transform: translateX(-50%);
+      z-index: 1000;
+      font-family: var(--font-geist-mono, 'Geist Mono', monospace);
+    }
+
+    @keyframes nav-enter {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 4px;
+      gap: 0;
+      animation: nav-enter 0.6s cubic-bezier(0.33, 1, 0.68, 1) 0.1s both;
+    }
+
+    .nav-pages {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .nav-tab {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: rgba(255, 255, 255, 0.5);
+      background: none;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-tab:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .nav-tab.active {
       color: #fff;
-      font-family: 'Geist Mono', monospace;
-      font-size: 0.7rem;
-      padding: 8px 14px;
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-divider {
+      width: 1px;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 0 4px;
+    }
+
+    .nav-social {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .nav-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      color: rgba(255, 255, 255, 0.5);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+      text-decoration: none;
+      position: relative;
+      padding: 0;
+    }
+
+    .nav-icon:hover {
+      color: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* Email button — separate from .nav-icon sizing */
+    .email-btn {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 32px;
+      width: auto;
+      min-width: 32px;
+      overflow: hidden;
+      border-radius: 999px;
+      border: none;
+      background: none;
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      padding: 0 8px;
+      gap: 6px;
+      position: relative;
+      font-family: inherit;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .email-btn:hover {
+      color: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .email-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .email-text-wrap {
+      position: relative;
+      overflow: hidden;
+      max-width: 0;
+      transition: max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .email-label {
+      display: inline-block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.6);
       white-space: nowrap;
-      pointer-events: none;
       opacity: 0;
-      z-index: 20;
+      filter: blur(4px);
+      transition: opacity 0.25s ease-out, filter 0.25s ease-out;
+    }
+
+    .email-label.is-visible {
+      opacity: 1;
+      filter: blur(0px);
+    }
+
+    .email-highlight {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .email-copied {
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #99cc00;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      opacity: 0;
+      filter: blur(4px);
+      transform: translateY(-16px);
+      transition: opacity 0.3s ease-out, filter 0.3s ease-out, transform 0.3s ease-out;
+    }
+
+    .email-copied.is-visible {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateY(0);
+    }
+
+    .email-copied svg {
+      width: 14px;
+      height: 14px;
+      fill: #99cc00;
     }
   </style>
 
-  <div class="key-card">
-    <div class="notch"></div>
-    <div class="photo-frame">
-      <img class="photo" alt="Nathan Alspaugh" />
+  <nav class="nav-bar">
+    <div class="nav-pages">
+      <button class="nav-tab active" data-page="home">Home</button>
+      <button class="nav-tab" data-page="work">Work</button>
+      <button class="nav-tab" data-page="thoughts">Thoughts</button>
     </div>
-    <div class="info">
-      <h1 class="name">Nathan Alspaugh</h1>
-      <p class="title">Sr. Product Designer</p>
-    </div>
-    <div class="socials">
-      <a class="social-btn" href="https://www.linkedin.com/in/nathanalspaugh/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path d="M216,20H40A20,20,0,0,0,20,40V216a20,20,0,0,0,20,20H216a20,20,0,0,0,20-20V40A20,20,0,0,0,216,20ZM44,44H212V212H44ZM112,176V124a12,12,0,0,1,21.43-7.41A40,40,0,0,1,192,152v24a12,12,0,0,1-24,0V152a16,16,0,0,0-32,0v24a12,12,0,0,1-24,0ZM96,124v52a12,12,0,0,1-24,0V124a12,12,0,0,1,24,0ZM84,92A16,16,0,1,1,100,76,16,16,0,0,1,84,92Z"/></svg>
+    <div class="nav-divider"></div>
+    <div class="nav-social">
+      <a class="nav-icon" href="https://www.linkedin.com/in/nathan-alspaugh/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
       </a>
-      <a class="social-btn" href="https://dribbble.com/nathanalspaugh" target="_blank" rel="noopener noreferrer" aria-label="Dribbble">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm83.13,65.27a83.92,83.92,0,0,1,8.17,20.45c-20.11,2.08-42.13,1-60.79-3A175.14,175.14,0,0,0,211.13,85.27Zm-18-17.28A84,84,0,0,1,137.8,44.34a163.18,163.18,0,0,0,27.48,28.76Q175.8,71.74,193.14,68Zm-78-22.45A84.31,84.31,0,0,1,128,44h1.63a187.26,187.26,0,0,1-31.75,33.48A192.52,192.52,0,0,1,115.16,45.54Zm-23.07,9.7A168.52,168.52,0,0,0,73.41,89.75,84.15,84.15,0,0,1,92.09,55.24Zm-38,53A84,84,0,0,1,56.22,96.5a192,192,0,0,0,37-4.93A216.38,216.38,0,0,1,69.14,128h-12C55.57,118.49,54.26,113.55,54.1,108.24Zm2.15,32.27A84.24,84.24,0,0,1,44,128c0-1.22,0-2.43.08-3.64A107.4,107.4,0,0,0,69.14,128h0a216.38,216.38,0,0,1-12.89,12.51Zm99.24,67.68A84,84,0,0,1,82.41,196.7a152.27,152.27,0,0,1,43-43.18,199.91,199.91,0,0,1,30.09,55.67Zm23.27-7.06a199.49,199.49,0,0,0-25.16-48.15c13.3-5,28.32-7.18,44.47-6.38A84.09,84.09,0,0,1,178.76,201.13Zm-56.32-64.25A128.18,128.18,0,0,0,75,181.63a84.24,84.24,0,0,1-14.72-24.14A191.38,191.38,0,0,0,93.14,128a192.61,192.61,0,0,0,29.3,8.88Z"/></svg>
+      <a class="nav-icon" href="https://dribbble.com/nathan-alspaugh" target="_blank" rel="noopener" aria-label="Dribbble">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm10.12-10.358c-.35-.11-3.17-.953-6.384-.438 1.34 3.684 1.887 6.684 1.992 7.308 2.3-1.555 3.936-4.02 4.395-6.87zm-6.115 7.808c-.153-.9-.75-4.032-2.19-7.77l-.066.02c-5.79 2.015-7.86 6.025-8.04 6.4 1.73 1.358 3.92 2.166 6.29 2.166 1.42 0 2.77-.29 4-.81zm-11.62-2.58c.232-.4 3.045-5.055 8.332-6.765.135-.045.27-.084.405-.12-.26-.585-.54-1.167-.832-1.74C7.17 11.775 2.206 11.71 1.756 11.7l-.004.312c0 2.633.998 5.037 2.634 6.855zm-2.42-8.955c.46.008 4.683.026 9.477-1.248-1.698-3.018-3.53-5.558-3.8-5.928-2.868 1.35-5.01 3.99-5.676 7.17zM9.6 2.052c.282.38 2.145 2.914 3.822 6 3.645-1.365 5.19-3.44 5.373-3.702A10.005 10.005 0 0012 1.968c-.83 0-1.634.105-2.4.084zm10.335 3.483c-.218.29-1.89 2.478-5.64 4.023.24.49.47.985.68 1.486.08.18.15.36.22.53 3.41-.43 6.8.26 7.14.33-.02-2.42-.88-4.64-2.4-6.37z"/>
+        </svg>
       </a>
-      <button class="social-btn" id="copy-email">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path d="M224,44H32A12,12,0,0,0,20,56V192a20,20,0,0,0,20,20H216a20,20,0,0,0,20-20V56A12,12,0,0,0,224,44ZM193.15,68,128,127.72,62.85,68ZM44,188V83.28l75.89,69.57a12,12,0,0,0,16.22,0L212,83.28V188Z"/></svg>
-        Copy email
+      <button class="email-btn" aria-label="Copy email address">
+        <svg class="email-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/>
+          <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/>
+        </svg>
+        <span class="email-text-wrap">
+          <span class="email-label">copy <span class="email-highlight">nate.alspaugh18@gmail.com</span> to your clipboard</span>
+          <span class="email-copied">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            copied nate.alspaugh18@gmail.com
+          </span>
+        </span>
       </button>
     </div>
-    <div class="toast" id="toast">nate.alspaugh18@gmail.com was copied to your clipboard</div>
+  </nav>
+`;var pi=class extends HTMLElement{constructor(){super(),this.attachShadow({mode:`open`}),this.shadowRoot.appendChild(fi.content.cloneNode(!0))}connectedCallback(){this.shadowRoot.querySelectorAll(`.nav-tab`).forEach(e=>{e.addEventListener(`click`,()=>{this.shadowRoot.querySelector(`.nav-tab.active`)?.classList.remove(`active`),e.classList.add(`active`),this.dispatchEvent(new CustomEvent(`nav-change`,{detail:{page:e.dataset.page},bubbles:!0,composed:!0}))})});let e=this.shadowRoot.querySelector(`.email-btn`),t=this.shadowRoot.querySelector(`.email-label`),n=this.shadowRoot.querySelector(`.email-copied`),r=this.shadowRoot.querySelector(`.email-icon`),i=this.shadowRoot.querySelector(`.email-text-wrap`),a=!1,o=e=>{i.style.transition=`none`,i.style.maxWidth=`9999px`;let t=e.getBoundingClientRect().width;return i.style.maxWidth=``,i.offsetHeight,i.style.transition=``,Math.ceil(t)+2};e.addEventListener(`mouseenter`,()=>{if(a)return;let e=o(t);i.style.maxWidth=e+`px`,setTimeout(()=>t.classList.add(`is-visible`),80)}),e.addEventListener(`mouseleave`,()=>{a||(t.classList.remove(`is-visible`),i.style.maxWidth=`0`)}),e.addEventListener(`click`,()=>{if(a)return;a=!0,navigator.clipboard.writeText(`nate.alspaugh18@gmail.com`).catch(()=>{}),t.classList.remove(`is-visible`);let e=o(n);t.style.transform=`translateY(16px)`,t.style.opacity=`0`,t.style.filter=`blur(4px)`,r.style.transition=`opacity 0.25s ease-in, filter 0.25s ease-in`,r.style.opacity=`0`,r.style.filter=`blur(4px)`,i.style.maxWidth=e+`px`,setTimeout(()=>{n.classList.add(`is-visible`)},150),setTimeout(()=>{n.style.transition=`opacity 0.25s ease-in, filter 0.25s ease-in, transform 0.25s ease-in`,n.style.opacity=`0`,n.style.filter=`blur(4px)`,n.style.transform=`translateY(16px)`,setTimeout(()=>{i.style.maxWidth=`0`},100),r.style.transition=`opacity 0.3s ease-out 0.1s, filter 0.3s ease-out 0.1s`,r.style.opacity=`1`,r.style.filter=`blur(0px)`,setTimeout(()=>{a=!1,n.classList.remove(`is-visible`),n.removeAttribute(`style`),t.removeAttribute(`style`),r.removeAttribute(`style`),i.removeAttribute(`style`)},400)},1800)})}};customElements.define(`main-nav`,pi);var mi=document.createElement(`template`);mi.innerHTML=`
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      font-family: var(--font-geist-mono);
+      text-transform: uppercase;
+    }
+
+    .manifesto {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 372px;
+      margin: 0 0 40px;
+    }
+
+    .blurb {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.6);
+      max-width: 372px;
+      margin: 0;
+    }
+
+    .footnote {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 16px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    @media (max-width: 1023px) {
+      .manifesto,
+      .blurb {
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .manifesto {
+        margin-bottom: 20px;
+      }
+
+      .footnote {
+        display: none;
+      }
+    }
+  </style>
+
+  <p class="manifesto">I love collaborating with product and engineering teams to achieve ambitious goals.</p>
+  <p class="blurb">I'm based in the Davis County area with my wife, 5 kids, 2 dogs, <s>3 guinea pigs</s>(RIP) and 1 python.</p>
+  <div class="footnote">
+    <span>Bountiful, UT</span>
+    <span id="weather">—°F • ——</span>
   </div>
-`;var di=class extends HTMLElement{constructor(){super(),this.attachShadow({mode:`open`}),this.shadowRoot.appendChild(ui.content.cloneNode(!0)),this._card=null,this._photoFrame=null,this._onMouseMove=this._onMouseMove.bind(this),this._onMouseLeave=this._onMouseLeave.bind(this)}connectedCallback(){let e=this.shadowRoot.querySelector(`.photo`);e.src=li,this._card=this.shadowRoot.querySelector(`.key-card`),this._photoFrame=this.shadowRoot.querySelector(`.photo-frame`),this._card.addEventListener(`mousemove`,this._onMouseMove),this._card.addEventListener(`mouseleave`,this._onMouseLeave);let t=this.shadowRoot.querySelector(`#copy-email`),n=this.shadowRoot.querySelector(`#toast`);t.addEventListener(`click`,()=>{navigator.clipboard.writeText(`nate.alspaugh18@gmail.com`),ci.killTweensOf(n),ci.fromTo(n,{opacity:0,y:8},{opacity:1,y:0,duration:.25,ease:`power2.out`,onComplete:()=>{ci.to(n,{opacity:0,y:8,duration:.25,ease:`power2.in`,delay:2})}})}),this._animate()}disconnectedCallback(){this._card&&(this._card.removeEventListener(`mousemove`,this._onMouseMove),this._card.removeEventListener(`mouseleave`,this._onMouseLeave))}_onMouseMove(e){let t=this._card.getBoundingClientRect(),n=(e.clientX-t.left)/t.width*100,r=(e.clientY-t.top)/t.height*100;this._card.style.setProperty(`--mx`,`${n}%`),this._card.style.setProperty(`--my`,`${r}%`);let i=this._tweakerTiltX??.15,a=this._tweakerTiltY??.1,o=(n-50)*i,s=(r-50)*-a;ci.to(this._card,{rotateX:s,rotateY:o,duration:.3,ease:`power2.out`,overwrite:`auto`});let c=this._tweakerParallax??.045;ci.to(this._photoFrame,{x:(n-50)*-c,y:(r-50)*-c,duration:.3,ease:`power2.out`,overwrite:`auto`})}_onMouseLeave(){this._card.style.setProperty(`--mx`,`50%`),this._card.style.setProperty(`--my`,`30%`),ci.to(this._card,{rotateX:0,rotateY:0,duration:.5,ease:`power2.out`,overwrite:`auto`}),ci.to(this._photoFrame,{x:0,y:0,duration:.5,ease:`power2.out`,overwrite:`auto`})}_animate(){let e=ci.timeline();e.from(this._card,{y:60,opacity:0,duration:.9,ease:`power3.out`,delay:.2}),this._floatTween=e.to(this._card,{y:-8,duration:2.5,ease:`sine.inOut`,yoyo:!0,repeat:-1})}};customElements.define(`key-card`,di),document.querySelector(`#app`).innerHTML=`
-  <section class="hero">
-    <key-card></key-card>
-  </section>
-`;
+`;var hi=`https://api.open-meteo.com/v1/forecast?latitude=40.8894&longitude=-111.8808&current=temperature_2m,weather_code&temperature_unit=fahrenheit`;function gi(e){return e===0?`Clear`:e===1||e===2?`Partly Cloudy`:e===3?`Cloudy`:e===45||e===48?`Fog`:e>=51&&e<=57?`Drizzle`:e>=61&&e<=67||e>=80&&e<=82?`Rain`:e>=71&&e<=77||e===85||e===86?`Snow`:e===95||e===96||e===99?`Thunderstorm`:``}var _i=class extends HTMLElement{constructor(){super(),this.attachShadow({mode:`open`}),this.shadowRoot.appendChild(mi.content.cloneNode(!0))}async connectedCallback(){try{let e=await fetch(hi);if(!e.ok)return;let{current:t}=await e.json(),n=Math.round(t.temperature_2m),r=gi(t.weather_code),i=this.shadowRoot.getElementById(`weather`);i&&(i.textContent=r?`${n}°F • ${r}`:`${n}°F`)}catch{}}};customElements.define(`home-bio`,_i);var vi=[{slug:`particle-finance-research-canvas`,title:`Particle — Finance Research Canvas`,accent:`#99cc00`,year:`2026`,tagline:`Enabling investors asdf`,sections:[{type:`hero-placeholder`,label:`Dark digital interface`},{type:`section`,heading:`Background`,body:`After a recent pivot to focus on a new ICP(retail and institutional investors) the idea was that by coupling finance information like stock pricing and trends with data we are able to pull in from things like the news (check out Particle's rad mobile app) via our API, we'd be able to surface rich insights to help them make for better financial decision. A big factor for being able to explore a feature like this was because our API was really teeing up some great data along with MCP tools to sink our teeth into as builders.`},{type:`section`,heading:`Problem Space`,body:`While we pivoted to our new ICP, something I heard from preliminary research(and ultimately what I couldn't stop thinking about) were that investors were using archaic methods of documenting research like links, screenshot, files/documents, and their thoughts in software like their notes app to document their research. While not the same, I've experienced similar workflows that made the process brittle for maintaining deep work because having to bounce around from place to place made it difficult to flow from thought to thought. Early conversation with Tyler where we had thought about being able to "grab" and element from any page on the app and then drop it into a "box" to annotate or save for later had given me some early idea of how to approach this feature.`},{type:`section`,heading:`Initial Brainstorming`,body:`I wanted to explore how we could solve this problem, intuitively I thought of some kind of canvas interaction but supercharged with ability to have AI help you answer your questions, organize your research, and and keep you in flow. I used a homegrown skill Marcel had cooked up during his work on the API called /brainstorm to start teasing out a more solid concept and some base ideas. This allowed me to go back and forth with Claude that ultimately stretched my thinking of what this could be a lot sooner in the process vs "having to see it" before getting to explore those. One of those gems was "what if it could make correlations that you weren't able to?"`},{type:`callout`,eyebrow:`Initial Brainstorm summary from claude Session`,body:`The canvas feature began in early February 2026 as a loose intuition: what if users could grab research cards — company profiles, data points, artifacts scattered across the app — and drop them onto a shared surface to annotate, cluster, and draw connections between them? The initial reference points were Miro and FigJam, but within the first exchange the framing shifted. Rather than treat the canvas as a blank whiteboard bolted onto the app, the brainstorm pushed toward a "spatial thinking layer" whose value came precisely from the structured data already flowing through the product. That reframing produced the feature's guiding metaphor — canvas as collaborator — an intelligent container that accumulated context and actively looked for patterns across the items placed into it. The most exciting thread to emerge was the idea that the canvas could surface correlations you wouldn't have found on your own, elevating it from a documentation tool into a thinking partner.
+
+From there, a second insight locked the design in: the canvas isn't paired with a conversation, the canvas is the conversation. A query doesn't produce a linear report that you then drag onto a canvas; the response materializes spatially, and every subsequent interaction evolves that spatial artifact. None of this was implementation yet — no code, no components, no routes — but the conceptual scaffolding that shipped was already in place by the end of the brainstorm.`,quoteLabel:`Notable Quote:`,quote:`"Canvas as a collaborator"`},{type:`section`,heading:`Starting Functionality`,body:`Based on that brainstorming session I had a decent idea for some line item of functionality. I then could prioritize initial features to start playing around with the feel of the interaction to demo to the team.`},{type:`feature`,label:`Image 1`,caption:`Infinite panning canvas to give users the space to document their thoughts, goals, and to do their research.`},{type:`feature`,label:`Image 2`,caption:`Annotation tools: Sticky notes, floating text, and lines to annotate your thoughts on the canvas`},{type:`feature`,label:`Image 3`,caption:`Company node to reference publicly traded companies`},{type:`feature`,label:`Image 4`,caption:`Company Actions - Single selection`},{type:`feature`,label:`Image 5`,caption:`Company Actions - Multiple selection`},{type:`feature`,label:`Image 6`,caption:`Query Node - Ask the questions and generate a response`},{type:`feature`,label:`Image 6`,caption:`Query Response Action - Extract quotes as highlights`},{type:`paragraph`,body:`As I was exploring, an emerging interaction that felt good were:
+
+1. Adding an object like a Company and then perform a follow up action like ask a question and then start pulling insights from that to go down that little rabbit hole
+2. Add an initial research report to start diving into a query and then extract quotes from that to also go down little rabbit holes`},{type:`paragraph`,body:`Once I had a working prototype on paper, I had presented it to the team during our weekly call. It spurred an awesome conversation with feedback like "this could be our defining feature" and "I feel like you just invented the mouse". A lot of great back and forth around it's potential and inspiration of what to add to it. This was actually one of the greatest moments in my career.`},{type:`section`,heading:`Initial challenges/opportunities`,body:`The following weeks were filled with awesome input and collaboration from the team. We got to play with it and identify some much needed improvements and opportunities.
+
+"Blank canvas syndrome" we didn't have a great zero state, the user didn't really have an idea of what they could initially do with it
+
+"I can't bring in what I found" - There wasn't a way to drop in outside files like PDFs, Docs, etc to perform follow up actions.
+
+"I've organized all of this... now what" - While being able to do all of this research in a canvas was awesome, once you had all that context in, what were the ideal next steps? What could I make from this?`},{type:`section`,heading:`Following Additions/Improvements`},{type:`feature`,label:`Image 7`,caption:`Better zero state - Give users an idea of what they could start adding the canvas`},{type:`feature`,label:`Image 8`,caption:`File uploading - Be able to query a file and extract insights (Shout out to Marcel)`},{type:`section`,heading:`Research Feedback Highlights`,body:`After we went through a round of updates, it was demoed to our design partners and some based off of the feedback, made of privy to some of it's potential:`},{type:`feature`,label:`Image 8`,caption:`Potential upsell opportunity`,aspectRatio:`720 / 188`},{type:`section`,heading:`Research Feedback Highlights`,body:`After we went through a round of updates, it was demoed to our design partners and some based off of the feedback, made of privy to some of it's potential:`}]},{slug:`particle-component-forge-skill`,title:`Particle — Component-Forge Skill`,accent:`#00e6c8`,year:`2025`},{slug:`voze-mobile-app-redesign`,title:`Voze — Mobile App Redesign`,accent:`#e6399b`,year:`2024`,heroImage:`/assets/voze-dribble-shot-CNuAPnJf.png`}];function yi(e){return vi.find(t=>t.slug===e)??null}var bi=new Set;function xi(e=window.location.pathname){let t=e.match(/^\/work\/([^/]+)\/?$/);return t?{name:`case-study`,slug:t[1]}:{name:`home`}}function Si(e){e!==window.location.pathname&&(window.history.pushState({},``,e),wi())}function Ci(e){return bi.add(e),()=>bi.delete(e)}function wi(){let e=xi();bi.forEach(t=>t(e))}window.addEventListener(`popstate`,wi);var Ti=document.createElement(`template`);Ti.innerHTML=`
+  <style>
+    :host {
+      display: block;
+      font-family: var(--font-geist-mono);
+    }
+
+    .label {
+      display: block;
+      font-size: 16px;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      margin: 0 0 28px;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 0;
+      font-size: 16px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.9);
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 0.5px solid rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      transition: color 140ms ease;
+    }
+
+    .row-thumb {
+      display: none;
+      flex-shrink: 0;
+      width: 44px;
+      aspect-ratio: 4 / 3;
+      border-radius: 4px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .row-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .row:first-child {
+      border-top: 0.5px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .row:hover,
+    .row:focus-visible {
+      color: #99cc00;
+      outline: none;
+    }
+
+    .hover-preview {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 190px;
+      aspect-ratio: 4 / 3;
+      display: block;
+      opacity: 0;
+      pointer-events: none;
+      border-radius: 10px;
+      overflow: hidden;
+      will-change: transform, opacity;
+      filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.45));
+      z-index: 9999;
+    }
+
+    .hover-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @media (hover: none), (max-width: 1023px) {
+      .hover-preview {
+        display: none;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      .label {
+        font-size: 14px;
+        margin-bottom: 18px;
+      }
+
+      .row {
+        font-size: 14px;
+        padding: 12px 0;
+      }
+
+      .row-thumb {
+        display: block;
+      }
+    }
+  </style>
+
+  <span class="label">Featured work</span>
+  <div class="list"></div>
+  <div class="hover-preview" aria-hidden="true"><img alt="" /></div>
+`;var Ei=class extends HTMLElement{constructor(){super(),this.attachShadow({mode:`open`}),this.shadowRoot.appendChild(Ti.content.cloneNode(!0)),this._list=this.shadowRoot.querySelector(`.list`),this._preview=this.shadowRoot.querySelector(`.hover-preview`),this._previewImg=this._preview.querySelector(`img`),this._activeRow=null,this._rowHandlers=[],this._onClick=this._onClick.bind(this),this._onMouseMove=this._onMouseMove.bind(this),this._onDocLeave=this._onDocLeave.bind(this)}connectedCallback(){this._list.innerHTML=vi.map(e=>{let t=e.heroImage?`<span class="row-thumb" aria-hidden="true"><img src="${e.heroImage}" alt="" /></span>`:``;return`<a class="row" href="/work/${e.slug}" data-slug="${e.slug}">${t}<span>${e.title}</span></a>`}).join(``),this._list.addEventListener(`click`,this._onClick),this._quickX=ci.quickTo(this._preview,`x`,{duration:.35,ease:`power3.out`}),this._quickY=ci.quickTo(this._preview,`y`,{duration:.35,ease:`power3.out`}),this._list.querySelectorAll(`.row`).forEach(e=>{let t=vi.find(t=>t.slug===e.dataset.slug);if(!t||!t.heroImage)return;let n=e=>this._onRowEnter(e,t),r=()=>this._onRowLeave();e.addEventListener(`mouseenter`,n),e.addEventListener(`mouseleave`,r),this._rowHandlers.push({row:e,enter:n,leave:r})}),document.addEventListener(`mousemove`,this._onMouseMove),document.addEventListener(`mouseleave`,this._onDocLeave)}disconnectedCallback(){this._list.removeEventListener(`click`,this._onClick),document.removeEventListener(`mousemove`,this._onMouseMove),document.removeEventListener(`mouseleave`,this._onDocLeave),this._rowHandlers.forEach(({row:e,enter:t,leave:n})=>{e.removeEventListener(`mouseenter`,t),e.removeEventListener(`mouseleave`,n)}),this._rowHandlers=[],ci.killTweensOf(this._preview)}_onRowEnter(e,t){this._activeRow=e.currentTarget,this._previewImg.getAttribute(`src`)!==t.heroImage&&(this._previewImg.src=t.heroImage);let{x:n,y:r}=this._cursorOffset(e.clientX,e.clientY);ci.set(this._preview,{x:n,y:r}),ci.to(this._preview,{opacity:1,duration:.18,ease:`power2.out`,overwrite:`auto`})}_onRowLeave(){this._activeRow=null,ci.to(this._preview,{opacity:0,duration:.15,ease:`power2.in`,overwrite:`auto`})}_onMouseMove(e){if(!this._activeRow)return;let{x:t,y:n}=this._cursorOffset(e.clientX,e.clientY);this._quickX(t),this._quickY(n)}_onDocLeave(){this._activeRow&&this._onRowLeave()}_cursorOffset(e,t){let n=this._preview.offsetWidth||190,r=this._preview.offsetHeight||142;return{x:e-n-16,y:t-r-16}}_onClick(e){let t=e.target.closest(`.row`);t&&(e.metaKey||e.ctrlKey||e.shiftKey||e.button===1||(e.preventDefault(),Si(`/work/`+t.dataset.slug)))}};customElements.define(`work-list`,Ei);var Di=[{label:`LinkedIn`,href:`https://www.linkedin.com/in/natealspaugh`},{label:`Dribbble`,href:`https://dribbble.com/natealspaugh`},{label:`Resume`,href:`/resume.pdf`}],Oi=`
+  <svg class="row__arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true">
+    <line x1="64" y1="192" x2="192" y2="64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+    <polyline points="88 64 192 64 192 168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+  </svg>
+`,ki=document.createElement(`template`);ki.innerHTML=`
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      font-family: var(--font-geist-mono);
+    }
+
+    .label {
+      font-size: 16px;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.9);
+      text-transform: uppercase;
+      text-decoration: none;
+      width: fit-content;
+      transition: color 140ms ease;
+    }
+
+    .row__label {
+      display: inline-block;
+    }
+
+    .row__arrow {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      color: rgba(255, 255, 255, 0.4);
+      transition: color 140ms ease, transform 180ms ease;
+    }
+
+    .row:hover,
+    .row:focus-visible {
+      color: #99cc00;
+      outline: none;
+    }
+
+    .row:hover .row__arrow,
+    .row:focus-visible .row__arrow {
+      color: #99cc00;
+      transform: translate(2px, -2px);
+    }
+
+    .rows {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    @media (max-width: 1023px) {
+      :host {
+        gap: 18px;
+      }
+
+      .label {
+        font-size: 14px;
+      }
+
+      .row {
+        font-size: 14px;
+      }
+
+      .row__arrow {
+        width: 20px;
+        height: 20px;
+      }
+
+      .rows {
+        gap: 16px;
+      }
+    }
+  </style>
+
+  <span class="label">Get in touch</span>
+  <div class="rows"></div>
+`;var Ai=class extends HTMLElement{constructor(){super(),this.attachShadow({mode:`open`}),this.shadowRoot.appendChild(ki.content.cloneNode(!0))}connectedCallback(){let e=this.shadowRoot.querySelector(`.rows`);e.innerHTML=Di.map(e=>`
+      <a class="row" href="${e.href}" target="_blank" rel="noopener noreferrer">
+        <span class="row__label">${e.label}</span>
+        ${Oi}
+      </a>
+    `).join(``)}};customElements.define(`contact-links`,Ai);var ji=document.createElement(`template`);ji.innerHTML=`
+  <style>
+    :host {
+      display: block;
+      min-height: 100vh;
+      color: #fff;
+      font-family: 'Geist Mono', ui-monospace, monospace;
+    }
+
+    @keyframes cs-enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+      animation: cs-enter 0.45s cubic-bezier(0.33, 1, 0.68, 1) 0.15s both;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 18px;
+    }
+
+    .title {
+      font-family: 'Panchang', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      line-height: 1;
+      margin: 0 0 24px;
+      color: #fff;
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.55);
+      margin: 0 0 48px;
+      line-height: 1.5;
+    }
+
+    .hero-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      margin: 0 0 48px;
+    }
+
+    .coming-soon {
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 60px 32px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .sections {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .hero-placeholder {
+      aspect-ratio: 16 / 10;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.05), transparent 40%),
+        linear-gradient(135deg, #1c1e1c 0%, #0e0f0d 100%);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .section-heading {
+      font-family: 'Panchang', sans-serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+      line-height: 1.15;
+      margin: 0;
+      color: #fff;
+    }
+
+    .section-body,
+    .paragraph-body {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0;
+      white-space: pre-line;
+    }
+
+    .callout {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .callout-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .callout-body {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.75);
+      white-space: pre-line;
+      margin: 0;
+    }
+
+    .callout-quote {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .callout-quote-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .callout-quote-text {
+      font-size: 0.95rem;
+      color: var(--accent, #fff);
+    }
+
+    .feature {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .feature-image {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 12px;
+      background:
+        repeating-linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.02) 0 12px,
+          rgba(255, 255, 255, 0.04) 12px 24px
+        ),
+        #1a1b19;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+    }
+
+    .feature-caption {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.5;
+    }
+
+    .back-rail {
+      margin-bottom: 32px;
+    }
+
+    .back {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 8px 14px 8px 10px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      animation: cs-enter 0.4s ease-out both;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .back:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .back svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    .not-found {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+      padding-top: 160px;
+    }
+  </style>
+
+  <div class="wrap">
+    <div class="back-rail">
+      <button class="back" part="back" aria-label="Back to home">
+        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        Back
+      </button>
+    </div>
+    <div class="content"></div>
+  </div>
+`;function Mi(e){return String(e).replace(/&/g,`&amp;`).replace(/</g,`&lt;`).replace(/>/g,`&gt;`)}function Ni(e){switch(e.type){case`hero-placeholder`:return`<div class="hero-placeholder">${Mi(e.label??``)}</div>`;case`section`:return`
+        <section class="section">
+          <h2 class="section-heading">${Mi(e.heading)}</h2>
+          ${e.body?`<p class="section-body">${Mi(e.body)}</p>`:``}
+        </section>
+      `;case`paragraph`:return`<p class="paragraph-body">${Mi(e.body)}</p>`;case`callout`:return`
+        <aside class="callout">
+          ${e.eyebrow?`<div class="callout-eyebrow">${Mi(e.eyebrow)}</div>`:``}
+          <p class="callout-body">${Mi(e.body)}</p>
+          ${e.quote?`
+            <div class="callout-quote">
+              ${e.quoteLabel?`<div class="callout-quote-label">${Mi(e.quoteLabel)}</div>`:``}
+              <div class="callout-quote-text">${Mi(e.quote)}</div>
+            </div>
+          `:``}
+        </aside>
+      `;case`feature`:return`
+        <figure class="feature">
+          <div class="feature-image"${e.aspectRatio?` style="aspect-ratio: ${e.aspectRatio};"`:``}>${Mi(e.label??``)}</div>
+          ${e.caption?`<figcaption class="feature-caption">${Mi(e.caption)}</figcaption>`:``}
+        </figure>
+      `;default:return``}}var Pi=class extends HTMLElement{static get observedAttributes(){return[`slug`]}constructor(){super(),this.attachShadow({mode:`open`}),this.shadowRoot.appendChild(ji.content.cloneNode(!0)),this._content=this.shadowRoot.querySelector(`.content`),this._back=this.shadowRoot.querySelector(`.back`)}connectedCallback(){this._back.addEventListener(`click`,this._onBack),this._render()}disconnectedCallback(){this._back.removeEventListener(`click`,this._onBack)}attributeChangedCallback(){this.isConnected&&this._render()}_onBack=()=>Si(`/`);_render(){let e=yi(this.getAttribute(`slug`)??``);if(!e){this._content.innerHTML=`<div class="not-found">Project not found — <a href="/" style="color: #99cc00">back home</a></div>`;return}this.style.setProperty(`--accent`,e.accent);let t=e.heroImage?`<img class="hero-image" src="${e.heroImage}" alt="${e.title}" />`:``,n=e.tagline??`This case study is being written. Check back soon for the full story — process, decisions, and the little details that made this one special.`,r=e.sections?`<div class="sections">${e.sections.map(Ni).join(``)}</div>`:`<div class="coming-soon">Coming soon</div>`;this._content.innerHTML=`
+      <div class="eyebrow">Case study · ${e.year}</div>
+      <h1 class="title">${e.title}</h1>
+      <p class="tagline">${Mi(n)}</p>
+      ${t}
+      ${r}
+    `}};customElements.define(`case-study-page`,Pi);var Fi=document.querySelector(`#app`);function Ii(){Fi.innerHTML=`
+    <section class="hero">
+      <div class="hero-name" aria-hidden="true">
+        <span>Nathan</span>
+        <span>Alspaugh</span>
+      </div>
+      <div class="home-grid">
+        <home-bio class="home-grid__bio"></home-bio>
+        <div class="home-grid__badge">
+          <key-card></key-card>
+        </div>
+        <div class="home-grid__right">
+          <work-list></work-list>
+          <contact-links></contact-links>
+        </div>
+      </div>
+    </section>
+  `}function Li(e){Fi.innerHTML=`<case-study-page slug="${e}"></case-study-page>`}function Ri(e){e.name===`case-study`?Li(e.slug):Ii()}Ri(xi()),Ci(Ri);
