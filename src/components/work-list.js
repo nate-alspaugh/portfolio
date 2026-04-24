@@ -67,6 +67,49 @@ template.innerHTML = `
       outline: none;
     }
 
+    .row--disabled {
+      cursor: default;
+      color: rgba(255, 255, 255, 0.5);
+      position: relative;
+    }
+
+    .row--disabled:hover,
+    .row--disabled:focus-visible {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .row-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .coming-soon {
+      margin-left: auto;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.5);
+      border: 0.5px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
+      padding: 3px 10px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 140ms ease;
+    }
+
+    .row--disabled:hover .coming-soon,
+    .row--disabled:focus-visible .coming-soon {
+      opacity: 1;
+    }
+
+    @media (hover: none), (max-width: 1023px) {
+      .coming-soon {
+        opacity: 1;
+      }
+    }
+
     .hover-preview {
       position: fixed;
       top: 0;
@@ -152,7 +195,10 @@ class WorkList extends HTMLElement {
         } else if (p.heroImage) {
           thumb = `<span class="row-thumb" aria-hidden="true"><img src="${p.heroImage}" alt="" /></span>`;
         }
-        return `<a class="row" href="/work/${p.slug}" data-slug="${p.slug}">${thumb}<span>${p.title}</span></a>`;
+        if (p.comingSoon) {
+          return `<div class="row row--disabled" data-slug="${p.slug}" aria-disabled="true"><span class="row-title">${thumb}<span>${p.title}</span></span><span class="coming-soon">Coming soon</span></div>`;
+        }
+        return `<a class="row" href="/work/${p.slug}" data-slug="${p.slug}"><span class="row-title">${thumb}<span>${p.title}</span></span></a>`;
       })
       .join('');
     this._list.addEventListener('click', this._onClick);
@@ -163,7 +209,7 @@ class WorkList extends HTMLElement {
     const rows = this._list.querySelectorAll('.row');
     rows.forEach((row) => {
       const project = projects.find((p) => p.slug === row.dataset.slug);
-      if (!project || (!project.heroImage && !project.heroVideo)) return;
+      if (!project || project.comingSoon || (!project.heroImage && !project.heroVideo)) return;
       const enter = (e) => this._onRowEnter(e, project);
       const leave = () => this._onRowLeave();
       row.addEventListener('mouseenter', enter);
@@ -247,6 +293,10 @@ class WorkList extends HTMLElement {
   _onClick(e) {
     const row = e.target.closest('.row');
     if (!row) return;
+    if (row.classList.contains('row--disabled')) {
+      e.preventDefault();
+      return;
+    }
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
     e.preventDefault();
     navigate('/work/' + row.dataset.slug);
