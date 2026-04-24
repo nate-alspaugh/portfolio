@@ -50,6 +50,13 @@ template.innerHTML = `
         display: none;
       }
     }
+
+    @media (max-width: 767px) {
+      .manifesto,
+      .blurb {
+        max-width: none;
+      }
+    }
   </style>
 
   <p class="manifesto">I love collaborating with product and engineering teams to achieve ambitious goals.</p>

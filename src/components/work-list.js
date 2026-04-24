@@ -42,7 +42,7 @@ template.innerHTML = `
     .row-thumb {
       display: none;
       flex-shrink: 0;
-      width: 44px;
+      width: 56px;
       aspect-ratio: 4 / 3;
       border-radius: 4px;
       overflow: hidden;

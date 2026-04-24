@@ -154,7 +154,8 @@ body {
   .hero {
     height: auto;
     min-height: 100vh;
-    padding: 96px 0 48px;
+    padding: clamp(125px, calc(10vw + 44px), 140px) 0 48px;
+    align-items: flex-start;
     overflow: visible;
   }
 
@@ -194,7 +195,7 @@ body {
   }
 
   .hero-name {
-    top: 120px;
+    top: 48px;
   }
 }
 
