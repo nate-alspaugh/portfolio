@@ -33,6 +33,7 @@ template.innerHTML = `
     .key-card {
       position: relative;
       width: clamp(220px, min(26vw, 45vh), 400px);
+      container-type: inline-size;
       border-radius: 24px;
       background: #99cc00;
       overflow: visible;
@@ -43,6 +44,12 @@ template.innerHTML = `
       will-change: transform;
       cursor: default;
       box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+    }
+
+    @media (max-width: 767px) {
+      .key-card {
+        width: min(72vw, 300px);
+      }
     }
 
     /* Laminate plastic sleeve — pouch extends above the card for lanyard slot */
@@ -211,10 +218,11 @@ template.innerHTML = `
     .name {
       font-family: 'Panchang', sans-serif;
       font-weight: 600;
-      font-size: 1.3rem;
+      font-size: clamp(13px, 7.5cqi, 1.3rem);
       color: #151614;
       margin: 0 0 5px;
       line-height: 1.2;
+      white-space: nowrap;
     }
 
     .title {
