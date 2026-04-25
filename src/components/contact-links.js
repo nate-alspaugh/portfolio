@@ -1,6 +1,7 @@
 const LINKS = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/nathan-alspaugh/' },
   { label: 'Dribbble', href: 'https://dribbble.com/nathan-alspaugh' },
+  { label: 'Resume', href: '/nathan-alspaugh-resume.pdf' },
 ];
 
 const ARROW_SVG = `
