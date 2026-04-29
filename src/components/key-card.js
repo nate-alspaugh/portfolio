@@ -5,7 +5,6 @@ import cutoutUrl from '../assets/nate-cutout-2025.png';
 // Tap-and-hold tilt activation for ≤768px touch/stylus input.
 const HOLD_DELAY_MS = 250;
 const POP_DURATION_S = 0.22;   // Scale-up animation duration on activation.
-const POP_DURATION_MS = POP_DURATION_S * 1000;
 const IDLE_TOUCH_SCALE = 0.95; // Resting scale on touch viewports.
 const ACTIVE_SCALE = 1;        // Pops up to full size on activation.
 
@@ -774,12 +773,6 @@ class KeyCard extends HTMLElement {
     // Card stays at IDLE_TOUCH_SCALE during the grace window — no visual
     // change on press; the only visible transition is the pop on activation.
 
-    // Schedule the activation haptic so it fires when the card has finished
-    // popping up to scale 1 (HOLD_DELAY_MS hold + POP_DURATION_MS pop).
-    // Library's RAF-based delay keeps it inside the user gesture chain
-    // (required by iOS Safari's checkbox-switch path).
-    this._haptics.trigger([{ delay: HOLD_DELAY_MS + POP_DURATION_MS, duration: 25, intensity: 0.7 }]);
-
     if (this._holdTimerId) clearTimeout(this._holdTimerId);
     this._holdTimerId = setTimeout(() => {
       this._holdTimerId = 0;
@@ -807,9 +800,6 @@ class KeyCard extends HTMLElement {
     if (wasActive) {
       // pointerup is a user gesture, so a fresh trigger() works on iOS.
       this._haptics.trigger('light');
-    } else {
-      // Tapped and released before activation — abort the pending pop tick.
-      this._haptics.cancel();
     }
 
     this._cancelHold();
@@ -819,9 +809,7 @@ class KeyCard extends HTMLElement {
   _onPointerCancel(e) {
     if (e.pointerId !== this._holdPointerId) return;
     const wasActive = this._holdActive;
-    // Browser took over (scroll committed, system gesture, etc.) — abort
-    // any pending haptic and settle silently.
-    this._haptics.cancel();
+    // Browser took over (scroll committed, system gesture, etc.) — settle silently.
     this._cancelHold();
     if (wasActive) this._resetTilt();
   }
@@ -854,11 +842,15 @@ class KeyCard extends HTMLElement {
     document.addEventListener('touchmove', this._onDocTouchMove, { passive: false });
 
     // Pop scale to 1.0 with a slight overshoot — "clicked into mode."
+    // Haptic fires on the tween's onComplete so it lands exactly when the
+    // card reaches scale 1; if the user releases mid-pop, _cancelHold's
+    // settle tween overwrites this one and onComplete never runs.
     gsap.to(this._card, {
       scale: ACTIVE_SCALE,
       duration: POP_DURATION_S,
       ease: 'back.out(1.7)',
       overwrite: 'auto',
+      onComplete: () => this._haptics.trigger('medium'),
     });
 
     try {
