@@ -653,9 +653,9 @@ void main() {
     <span>Bountiful, UT</span>
     <span id="weather">—°F • ——</span>
   </div>
-`;var Ni=`https://api.open-meteo.com/v1/forecast?latitude=40.8894&longitude=-111.8808&current=temperature_2m,weather_code&temperature_unit=fahrenheit`;function Pi(e){return e===0?`Clear`:e===1||e===2?`Partly Cloudy`:e===3?`Cloudy`:e===45||e===48?`Fog`:e>=51&&e<=57?`Drizzle`:e>=61&&e<=67||e>=80&&e<=82?`Rain`:e>=71&&e<=77||e===85||e===86?`Snow`:e===95||e===96||e===99?`Thunderstorm`:``}var Fi=class extends HTMLElement{constructor(){super(),this.attachShadow({mode:`open`}),this.shadowRoot.appendChild(Mi.content.cloneNode(!0))}async connectedCallback(){try{let e=await fetch(Ni);if(!e.ok)return;let{current:t}=await e.json(),n=Math.round(t.temperature_2m),r=Pi(t.weather_code),i=this.shadowRoot.getElementById(`weather`);i&&(i.textContent=r?`${n}°F • ${r}`:`${n}°F`)}catch{}}};customElements.define(`home-bio`,Fi);var Ii=[{slug:`particle-finance-research-canvas`,title:`Particle — Finance Research Canvas`,accent:`#99cc00`,year:`2026`,heroVideo:`/assets/canvas-base-MBN0pJnE.mp4`,intro:`After a recent pivot to focus on a new ICP (retail and institutional investors) the idea was that by coupling finance information like stock pricing and trends with data we are able to pull in from things like the news (check out Particle's rad mobile app) via our API, we'd be able to surface rich insights to help them make better financial decisions. A big factor in being able to explore a feature like this was that our API was really teeing up some great data along with MCP tools to sink our teeth into as builders.`,sections:[{type:`section`,heading:`Problem Space`,body:`While we pivoted to our new ICP, something I heard from preliminary research (and ultimately what I couldn't stop thinking about) was that investors were using archaic methods of documenting research like links, screenshots, files/documents, and their thoughts in software like their notes app to document their research. While not the same, I've experienced similar workflows that made the process brittle for maintaining deep work because having to bounce around from place to place made it difficult to flow from thought to thought. Early conversations with Tyler in which we had thought about being able to "grab" an element from any page on the app and then drop it into a "box" to annotate or save for later had given me some early ideas of how to approach this feature.`},{type:`section`,heading:`Initial Brainstorming`,body:`I wanted to explore how we could solve this problem, intuitively I thought of some kind of canvas interaction but supercharged with the ability to have AI help you answer your questions, organize your research, and keep you in flow. I used a homegrown skill called /brainstorm that Marcel had cooked up during his work on the API to start teasing out a more solid concept and some base ideas. This allowed me to go back and forth with Claude that ultimately stretched my thinking of what this could be a lot sooner in the process vs "having to see it" before getting to explore those.`},{type:`callout`,eyebrow:`Initial Brainstorm Summary from Claude Session`,body:`The canvas feature began in early February 2026 as a loose intuition: what if users could grab research cards — company profiles, data points, artifacts scattered across the app — and drop them onto a shared surface to annotate, cluster, and draw connections between them? The initial reference points were Miro and FigJam, but within the first exchange the framing shifted. Rather than treat the canvas as a blank whiteboard bolted onto the app, the brainstorm pushed toward a "spatial thinking layer" whose value came precisely from the structured data already flowing through the product. That reframing produced the feature's guiding metaphor — canvas as collaborator — an intelligent container that accumulated context and actively looked for patterns across the items placed into it. The most exciting thread to emerge was the idea that the canvas could surface correlations you wouldn't have found on your own, elevating it from a documentation tool into a thinking partner.
+`;var Ni=`https://api.open-meteo.com/v1/forecast?latitude=40.8894&longitude=-111.8808&current=temperature_2m,weather_code&temperature_unit=fahrenheit`;function Pi(e){return e===0?`Clear`:e===1||e===2?`Partly Cloudy`:e===3?`Cloudy`:e===45||e===48?`Fog`:e>=51&&e<=57?`Drizzle`:e>=61&&e<=67||e>=80&&e<=82?`Rain`:e>=71&&e<=77||e===85||e===86?`Snow`:e===95||e===96||e===99?`Thunderstorm`:``}var Fi=class extends HTMLElement{constructor(){super(),this.attachShadow({mode:`open`}),this.shadowRoot.appendChild(Mi.content.cloneNode(!0))}async connectedCallback(){try{let e=await fetch(Ni);if(!e.ok)return;let{current:t}=await e.json(),n=Math.round(t.temperature_2m),r=Pi(t.weather_code),i=this.shadowRoot.getElementById(`weather`);i&&(i.textContent=r?`${n}°F • ${r}`:`${n}°F`)}catch{}}};customElements.define(`home-bio`,Fi);var Ii=`/assets/voze-dribble-shot-CNuAPnJf.png`,Li=`/assets/component-forge-hero-shot-By0e06PA.jpg`,Ri=`/assets/canvas-base-MBN0pJnE.mp4`,zi=`/assets/annotation-features-BIlfwJjT.mp4`,Bi=`/assets/add-company-tgZd9NLg.mp4`,Vi=`/assets/company-ask-trigger-n5OirIf_.png`,Hi=`/assets/company-ask-asking-zfMSL_uv.png`,Ui=`/assets/company-ask-response-CLlpE0Fu.png`,Wi=`/assets/company-multi-input-DPP6DANn.png`,Gi=`/assets/highlight-extraction-BAAL2d2G.png`,Ki=`/assets/improved-empty-state-BnKVIpao.png`,qi=`/assets/file-upload-CNFu_VPX.png`,Ji=`/assets/ask-question-action-updates-19KhZ71F.png`,Yi=`/assets/tyler-quote-DtsIix5J.png`,Xi=`/assets/upsell-opportunity-BdsOwKXq.png`,Zi=[{slug:`particle-finance-research-canvas`,title:`Particle — Finance Research Canvas`,accent:`#99cc00`,year:`2026`,description:`An AI-powered spatial research canvas that lets investors capture, annotate, and connect company data. Designed at Particle.`,intro:`After a recent pivot to focus on a new ICP (retail and institutional investors) the idea was that by coupling finance information like stock pricing and trends with data we are able to pull in from things like the news (check out Particle's rad mobile app) via our API, we'd be able to surface rich insights to help them make better financial decisions. A big factor in being able to explore a feature like this was that our API was really teeing up some great data along with MCP tools to sink our teeth into as builders.`,sections:[{type:`section`,heading:`Problem Space`,body:`While we pivoted to our new ICP, something I heard from preliminary research (and ultimately what I couldn't stop thinking about) was that investors were using archaic methods of documenting research like links, screenshots, files/documents, and their thoughts in software like their notes app to document their research. While not the same, I've experienced similar workflows that made the process brittle for maintaining deep work because having to bounce around from place to place made it difficult to flow from thought to thought. Early conversations with Tyler in which we had thought about being able to "grab" an element from any page on the app and then drop it into a "box" to annotate or save for later had given me some early ideas of how to approach this feature.`},{type:`section`,heading:`Initial Brainstorming`,body:`I wanted to explore how we could solve this problem, intuitively I thought of some kind of canvas interaction but supercharged with the ability to have AI help you answer your questions, organize your research, and keep you in flow. I used a homegrown skill called /brainstorm that Marcel had cooked up during his work on the API to start teasing out a more solid concept and some base ideas. This allowed me to go back and forth with Claude that ultimately stretched my thinking of what this could be a lot sooner in the process vs "having to see it" before getting to explore those.`},{type:`callout`,eyebrow:`Initial Brainstorm Summary from Claude Session`,body:`The canvas feature began in early February 2026 as a loose intuition: what if users could grab research cards — company profiles, data points, artifacts scattered across the app — and drop them onto a shared surface to annotate, cluster, and draw connections between them? The initial reference points were Miro and FigJam, but within the first exchange the framing shifted. Rather than treat the canvas as a blank whiteboard bolted onto the app, the brainstorm pushed toward a "spatial thinking layer" whose value came precisely from the structured data already flowing through the product. That reframing produced the feature's guiding metaphor — canvas as collaborator — an intelligent container that accumulated context and actively looked for patterns across the items placed into it. The most exciting thread to emerge was the idea that the canvas could surface correlations you wouldn't have found on your own, elevating it from a documentation tool into a thinking partner.
 
-From there, a second insight locked the design in: the canvas isn't paired with a conversation, the canvas is the conversation. A query doesn't produce a linear report that you then drag onto a canvas; the response materializes spatially, and every subsequent interaction evolves that spatial artifact. None of this was implementation yet — no code, no components, no routes — but the conceptual scaffolding that shipped was already in place by the end of the brainstorm.`,quoteLabel:`Notable Quote`,quote:`"Canvas as a collaborator"`},{type:`section`,heading:`Starting Functionality`,body:`Based on that brainstorming session I had a decent list of functionality. I then could prioritize initial features to start playing around with the feel of the interaction to demo to the team.`},{type:`feature`,video:`/assets/annotation-features-BIlfwJjT.mp4`,caption:`Annotation tools — sticky notes, floating text, and lines to annotate your thoughts on the canvas`},{type:`feature`,video:`/assets/add-company-tgZd9NLg.mp4`,caption:`Add company node from publicly traded company`},{type:`carousel`,caption:`LLM-driven queries with easy point-and-click context adding`,images:[{src:`/assets/company-ask-trigger-n5OirIf_.png`,alt:`Company ask question trigger`},{src:`/assets/company-ask-asking-zfMSL_uv.png`,alt:`Company ask question being asked`},{src:`/assets/company-ask-response-CLlpE0Fu.png`,alt:`Company ask question response`}]},{type:`feature`,image:`/assets/company-multi-input-DPP6DANn.png`,caption:`Select multiple canvas items to add context to your prompt — helps mitigate typing fatigue when you're in flow researching`},{type:`feature`,image:`/assets/highlight-extraction-BAAL2d2G.png`,caption:`Easily extract insights by highlighting content from a query and creating a sticky note`},{type:`paragraph`,body:`Once I had a working prototype on paper, I had presented it to the team during our weekly call. It spurred an awesome conversation with feedback like "this could be our defining feature" and "I feel like you just invented the mouse". A lot of great back and forth around its potential and inspiration of what to add to it. This was actually one of the greatest moments in my career.`},{type:`image`,image:`/assets/tyler-quote-DtsIix5J.png`,label:`Quote from Tyler`},{type:`section`,heading:`Following Additions / Improvements`,body:`The following weeks were filled with awesome input and collaboration from the team. We got to play with it and identify some improvements and opportunities.`},{type:`feature`,image:`/assets/improved-empty-state-BnKVIpao.png`,caption:`Better zero state — gives users an idea of what they could start adding to the canvas`},{type:`feature`,image:`/assets/file-upload-CNFu_VPX.png`,caption:`File uploading — query a file and extract insights (shout out to Marcel)`},{type:`feature`,image:`/assets/ask-question-action-updates-19KhZ71F.png`,caption:`Out-of-the-box company actions from Tyler's work on insights`},{type:`section`,heading:`Research Feedback Highlights`,body:`After we went through a round of updates, it was demoed to our design partners and potential customers mostly to gauge market appetite. We noticed some top level themes begin to emerge:`},{type:`feature`,image:`/assets/upsell-opportunity-BdsOwKXq.png`,caption:`Emerging feedback trends from our demos`},{type:`section`,heading:`Outcomes and Learnings`,body:`While my time at Particle has come to a close before I got to work on this more, I learned a lot about experimenting with product ideas quickly with AI. This feature work got us some really valuable feedback and created a spot for collaborative discussion. Ultimately leadership decided to pivot away from Particle Finance to an API subscription model based on the incredible work they've accumulated over the last couple of years. I loved my time working on this product and team and am excited to tackle more projects like this in the future.`},{type:`paragraph`,body:`What I would try to tackle if I were still working on this:`,items:[`Context driven insights: What if it could auto surface insights to the user based on the context of the entire canvas?`,`File authoring: Either using point and click selections or the context of the entire canvas, what if you could make things like slide-shows, reports, etc from it?`,`Canvas Templates: Give users some ready templates for research use cases that let them see how the product could be utilized.`,`Auto exploring: Could we "peek ahead" before committing something to the canvas by having nodes "auto explode" off of a node that you have selected to get an idea of what you could explore.`]}]},{slug:`particle-component-forge-skill`,title:`Particle — Component-Forge Skill`,accent:`#00e6c8`,year:`2025`,comingSoon:!0},{slug:`voze-mobile-app-redesign`,title:`Voze — Mobile App Redesign`,accent:`#e6399b`,year:`2024`,heroImage:`/assets/voze-dribble-shot-CNuAPnJf.png`,comingSoon:!0}];function Li(e){return Ii.find(t=>t.slug===e)??null}var Ri=new Set;function zi(e=window.location.pathname){let t=e.match(/^\/work\/([^/]+)\/?$/);return t?{name:`case-study`,slug:t[1]}:{name:`home`}}function Bi(e){window.history.pushState({},``,e),Hi()}function Vi(e){return Ri.add(e),()=>Ri.delete(e)}function Hi(){let e=zi();Ri.forEach(t=>t(e))}window.addEventListener(`popstate`,Hi);var Ui=document.createElement(`template`);Ui.innerHTML=`
+From there, a second insight locked the design in: the canvas isn't paired with a conversation, the canvas is the conversation. A query doesn't produce a linear report that you then drag onto a canvas; the response materializes spatially, and every subsequent interaction evolves that spatial artifact. None of this was implementation yet — no code, no components, no routes — but the conceptual scaffolding that shipped was already in place by the end of the brainstorm.`,quoteLabel:`Notable Quote`,quote:`"Canvas as a collaborator"`},{type:`section`,heading:`Starting Functionality`,body:`Based on that brainstorming session I had a decent list of functionality. I then could prioritize initial features to start playing around with the feel of the interaction to demo to the team.`},{type:`feature`,caption:`Annotation tools — sticky notes, floating text, and lines to annotate your thoughts on the canvas`},{type:`feature`,caption:`Add company node from publicly traded company`},{type:`carousel`,caption:`LLM-driven queries with easy point-and-click context adding`},{type:`feature`,caption:`Select multiple canvas items to add context to your prompt — helps mitigate typing fatigue when you're in flow researching`},{type:`feature`,caption:`Easily extract insights by highlighting content from a query and creating a sticky note`},{type:`paragraph`,body:`Once I had a working prototype on paper, I had presented it to the team during our weekly call. It spurred an awesome conversation with feedback like "this could be our defining feature" and "I feel like you just invented the mouse". A lot of great back and forth around its potential and inspiration of what to add to it. This was actually one of the greatest moments in my career.`},{type:`image`,label:`Quote from Tyler`},{type:`section`,heading:`Following Additions / Improvements`,body:`The following weeks were filled with awesome input and collaboration from the team. We got to play with it and identify some improvements and opportunities.`},{type:`feature`,caption:`Better zero state — gives users an idea of what they could start adding to the canvas`},{type:`feature`,caption:`File uploading — query a file and extract insights (shout out to Marcel)`},{type:`feature`,caption:`Out-of-the-box company actions from Tyler's work on insights`},{type:`section`,heading:`Research Feedback Highlights`,body:`After we went through a round of updates, it was demoed to our design partners and potential customers mostly to gauge market appetite. We noticed some top level themes begin to emerge:`},{type:`feature`,caption:`Emerging feedback trends from our demos`},{type:`section`,heading:`Outcomes and Learnings`,body:`While my time at Particle has come to a close before I got to work on this more, I learned a lot about experimenting with product ideas quickly with AI. This feature work got us some really valuable feedback and created a spot for collaborative discussion. Ultimately leadership decided to pivot away from Particle Finance to an API subscription model based on the incredible work they've accumulated over the last couple of years. I loved my time working on this product and team and am excited to tackle more projects like this in the future.`},{type:`paragraph`,body:`What I would try to tackle if I were still working on this:`,items:[`Context driven insights: What if it could auto surface insights to the user based on the context of the entire canvas?`,`File authoring: Either using point and click selections or the context of the entire canvas, what if you could make things like slide-shows, reports, etc from it?`,`Canvas Templates: Give users some ready templates for research use cases that let them see how the product could be utilized.`,`Auto exploring: Could we "peek ahead" before committing something to the canvas by having nodes "auto explode" off of a node that you have selected to get an idea of what you could explore.`]}]},{slug:`particle-component-forge-skill`,title:`Particle — Component-Forge Skill`,accent:`#00e6c8`,year:`2025`,description:`A custom Claude skill for accelerating component design at Particle. Case study coming soon.`,comingSoon:!0},{slug:`voze-mobile-app-redesign`,title:`Voze — Mobile App Redesign`,accent:`#e6399b`,year:`2024`,description:`A redesign of the Voze mobile app for field workers. Case study coming soon.`,comingSoon:!0}],Qi={"particle-finance-research-canvas":{heroVideo:Ri,sections:{4:{video:zi},5:{video:Bi},6:{images:[{src:Vi,alt:`Company ask question trigger`},{src:Hi,alt:`Company ask question being asked`},{src:Ui,alt:`Company ask question response`}]},7:{image:Wi},8:{image:Gi},10:{image:Yi},12:{image:Ki},13:{image:qi},14:{image:Ji},16:{image:Xi}}},"particle-component-forge-skill":{heroImage:Li},"voze-mobile-app-redesign":{heroImage:Ii}},$i=Zi.map(e=>{let{sections:t,...n}=Qi[e.slug]??{},r=e.sections?.map((e,n)=>({...e,...t?.[n]??{}}));return{...e,...n,...r?{sections:r}:{}}});function ea(e){return $i.find(t=>t.slug===e)??null}var ta=new Set;function na(e=window.location.pathname){let t=e.match(/^\/work\/([^/]+)\/?$/);return t?{name:`case-study`,slug:t[1]}:{name:`home`}}function ra(e){window.history.pushState({},``,e),aa()}function ia(e){return ta.add(e),()=>ta.delete(e)}function aa(){let e=na();ta.forEach(t=>t(e))}window.addEventListener(`popstate`,aa);var oa=document.createElement(`template`);oa.innerHTML=`
   <style>
     :host {
       display: block;
@@ -820,12 +820,12 @@ From there, a second insight locked the design in: the canvas isn't paired with 
     <img alt="" />
     <video muted loop playsinline preload="auto"></video>
   </div>
-`;var Wi=class extends HTMLElement{constructor(){super(),this.attachShadow({mode:`open`}),this.shadowRoot.appendChild(Ui.content.cloneNode(!0)),this._list=this.shadowRoot.querySelector(`.list`),this._preview=this.shadowRoot.querySelector(`.hover-preview`),this._previewImg=this._preview.querySelector(`img`),this._previewVideo=this._preview.querySelector(`video`),this._activeRow=null,this._rowHandlers=[],this._onClick=this._onClick.bind(this),this._onMouseMove=this._onMouseMove.bind(this),this._onDocLeave=this._onDocLeave.bind(this)}connectedCallback(){this._list.innerHTML=Ii.map(e=>{let t=``;return e.heroVideo?t=`<span class="row-thumb" aria-hidden="true"><video src="${e.heroVideo}" autoplay loop muted playsinline preload="auto"></video></span>`:e.heroImage&&(t=`<span class="row-thumb" aria-hidden="true"><img src="${e.heroImage}" alt="" /></span>`),e.comingSoon?`<div class="row row--disabled" data-slug="${e.slug}" aria-disabled="true"><span class="row-title">${t}<span>${e.title}</span></span><span class="coming-soon">Coming soon</span></div>`:`<a class="row" href="/work/${e.slug}" data-slug="${e.slug}"><span class="row-title">${t}<span>${e.title}</span></span></a>`}).join(``),this._list.addEventListener(`click`,this._onClick),this._quickX=li.quickTo(this._preview,`x`,{duration:.35,ease:`power3.out`}),this._quickY=li.quickTo(this._preview,`y`,{duration:.35,ease:`power3.out`}),this._list.querySelectorAll(`.row`).forEach(e=>{let t=Ii.find(t=>t.slug===e.dataset.slug);if(!t||t.comingSoon||!t.heroImage&&!t.heroVideo)return;let n=e=>this._onRowEnter(e,t),r=()=>this._onRowLeave();e.addEventListener(`mouseenter`,n),e.addEventListener(`mouseleave`,r),this._rowHandlers.push({row:e,enter:n,leave:r})}),document.addEventListener(`mousemove`,this._onMouseMove),document.addEventListener(`mouseleave`,this._onDocLeave)}disconnectedCallback(){this._list.removeEventListener(`click`,this._onClick),document.removeEventListener(`mousemove`,this._onMouseMove),document.removeEventListener(`mouseleave`,this._onDocLeave),this._rowHandlers.forEach(({row:e,enter:t,leave:n})=>{e.removeEventListener(`mouseenter`,t),e.removeEventListener(`mouseleave`,n)}),this._rowHandlers=[],li.killTweensOf(this._preview)}_onRowEnter(e,t){this._activeRow=e.currentTarget,t.heroVideo?(this._previewVideo.getAttribute(`src`)!==t.heroVideo&&(this._previewVideo.src=t.heroVideo),this._preview.classList.remove(`show-image`),this._preview.classList.add(`show-video`),this._previewVideo.play().catch(()=>{})):t.heroImage&&(this._previewImg.getAttribute(`src`)!==t.heroImage&&(this._previewImg.src=t.heroImage),this._preview.classList.remove(`show-video`),this._preview.classList.add(`show-image`),this._previewVideo.pause?.());let{x:n,y:r}=this._cursorOffset(e.clientX,e.clientY);li.set(this._preview,{x:n,y:r}),li.to(this._preview,{opacity:1,duration:.18,ease:`power2.out`,overwrite:`auto`})}_onRowLeave(){this._activeRow=null,this._previewVideo.pause(),li.to(this._preview,{opacity:0,duration:.15,ease:`power2.in`,overwrite:`auto`})}_onMouseMove(e){if(!this._activeRow)return;let{x:t,y:n}=this._cursorOffset(e.clientX,e.clientY);this._quickX(t),this._quickY(n)}_onDocLeave(){this._activeRow&&this._onRowLeave()}_cursorOffset(e,t){let n=this._preview.offsetWidth||190,r=this._preview.offsetHeight||142;return{x:e-n-16,y:t-r-16}}_onClick(e){let t=e.target.closest(`.row`);if(t){if(t.classList.contains(`row--disabled`)){e.preventDefault();return}e.metaKey||e.ctrlKey||e.shiftKey||e.button===1||(e.preventDefault(),Bi(`/work/`+t.dataset.slug))}}};customElements.define(`work-list`,Wi);var Gi=[{label:`LinkedIn`,href:`https://www.linkedin.com/in/nathan-alspaugh/`},{label:`Dribbble`,href:`https://dribbble.com/nathan-alspaugh`},{label:`Resume`,href:`/nathan-alspaugh-resume.pdf`}],Ki=`
+`;var sa=class extends HTMLElement{constructor(){super(),this.attachShadow({mode:`open`}),this.shadowRoot.appendChild(oa.content.cloneNode(!0)),this._list=this.shadowRoot.querySelector(`.list`),this._preview=this.shadowRoot.querySelector(`.hover-preview`),this._previewImg=this._preview.querySelector(`img`),this._previewVideo=this._preview.querySelector(`video`),this._activeRow=null,this._rowHandlers=[],this._onClick=this._onClick.bind(this),this._onMouseMove=this._onMouseMove.bind(this),this._onDocLeave=this._onDocLeave.bind(this)}connectedCallback(){this._list.innerHTML=$i.map(e=>{let t=``;return e.heroVideo?t=`<span class="row-thumb" aria-hidden="true"><video src="${e.heroVideo}" autoplay loop muted playsinline preload="auto"></video></span>`:e.heroImage&&(t=`<span class="row-thumb" aria-hidden="true"><img src="${e.heroImage}" alt="" /></span>`),e.comingSoon?`<div class="row row--disabled" data-slug="${e.slug}" aria-disabled="true"><span class="row-title">${t}<span>${e.title}</span></span><span class="coming-soon">Coming soon</span></div>`:`<a class="row" href="/work/${e.slug}" data-slug="${e.slug}"><span class="row-title">${t}<span>${e.title}</span></span></a>`}).join(``),this._list.addEventListener(`click`,this._onClick),this._quickX=li.quickTo(this._preview,`x`,{duration:.35,ease:`power3.out`}),this._quickY=li.quickTo(this._preview,`y`,{duration:.35,ease:`power3.out`}),this._list.querySelectorAll(`.row`).forEach(e=>{let t=$i.find(t=>t.slug===e.dataset.slug);if(!t||t.comingSoon||!t.heroImage&&!t.heroVideo)return;let n=e=>this._onRowEnter(e,t),r=()=>this._onRowLeave();e.addEventListener(`mouseenter`,n),e.addEventListener(`mouseleave`,r),this._rowHandlers.push({row:e,enter:n,leave:r})}),document.addEventListener(`mousemove`,this._onMouseMove),document.addEventListener(`mouseleave`,this._onDocLeave)}disconnectedCallback(){this._list.removeEventListener(`click`,this._onClick),document.removeEventListener(`mousemove`,this._onMouseMove),document.removeEventListener(`mouseleave`,this._onDocLeave),this._rowHandlers.forEach(({row:e,enter:t,leave:n})=>{e.removeEventListener(`mouseenter`,t),e.removeEventListener(`mouseleave`,n)}),this._rowHandlers=[],li.killTweensOf(this._preview)}_onRowEnter(e,t){this._activeRow=e.currentTarget,t.heroVideo?(this._previewVideo.getAttribute(`src`)!==t.heroVideo&&(this._previewVideo.src=t.heroVideo),this._preview.classList.remove(`show-image`),this._preview.classList.add(`show-video`),this._previewVideo.play().catch(()=>{})):t.heroImage&&(this._previewImg.getAttribute(`src`)!==t.heroImage&&(this._previewImg.src=t.heroImage),this._preview.classList.remove(`show-video`),this._preview.classList.add(`show-image`),this._previewVideo.pause?.());let{x:n,y:r}=this._cursorOffset(e.clientX,e.clientY);li.set(this._preview,{x:n,y:r}),li.to(this._preview,{opacity:1,duration:.18,ease:`power2.out`,overwrite:`auto`})}_onRowLeave(){this._activeRow=null,this._previewVideo.pause(),li.to(this._preview,{opacity:0,duration:.15,ease:`power2.in`,overwrite:`auto`})}_onMouseMove(e){if(!this._activeRow)return;let{x:t,y:n}=this._cursorOffset(e.clientX,e.clientY);this._quickX(t),this._quickY(n)}_onDocLeave(){this._activeRow&&this._onRowLeave()}_cursorOffset(e,t){let n=this._preview.offsetWidth||190,r=this._preview.offsetHeight||142;return{x:e-n-16,y:t-r-16}}_onClick(e){let t=e.target.closest(`.row`);if(t){if(t.classList.contains(`row--disabled`)){e.preventDefault();return}e.metaKey||e.ctrlKey||e.shiftKey||e.button===1||(e.preventDefault(),ra(`/work/`+t.dataset.slug))}}};customElements.define(`work-list`,sa);var ca=[{label:`LinkedIn`,href:`https://www.linkedin.com/in/nathan-alspaugh/`},{label:`Dribbble`,href:`https://dribbble.com/nathan-alspaugh`},{label:`Resume`,href:`/nathan-alspaugh-resume.pdf`}],la=`
   <svg class="row__arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true">
     <line x1="64" y1="192" x2="192" y2="64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
     <polyline points="88 64 192 64 192 168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
   </svg>
-`,qi=document.createElement(`template`);qi.innerHTML=`
+`,ua=document.createElement(`template`);ua.innerHTML=`
   <style>
     :host {
       display: flex;
@@ -910,455 +910,71 @@ From there, a second insight locked the design in: the canvas isn't paired with 
 
   <span class="label">Get in touch</span>
   <div class="rows"></div>
-`;var Ji=class extends HTMLElement{constructor(){super(),this.attachShadow({mode:`open`}),this.shadowRoot.appendChild(qi.content.cloneNode(!0))}connectedCallback(){let e=this.shadowRoot.querySelector(`.rows`);e.innerHTML=Gi.map(e=>`
+`;var da=class extends HTMLElement{constructor(){super(),this.attachShadow({mode:`open`}),this.shadowRoot.appendChild(ua.content.cloneNode(!0))}connectedCallback(){let e=this.shadowRoot.querySelector(`.rows`);e.innerHTML=ca.map(e=>`
       <a class="row" href="${e.href}" target="_blank" rel="noopener noreferrer">
         <span class="row__label">${e.label}</span>
-        ${Ki}
+        ${la}
       </a>
-    `).join(``)}};customElements.define(`contact-links`,Ji);var Yi=document.createElement(`template`);Yi.innerHTML=`
-  <style>
-    :host {
-      display: block;
-      min-height: 100vh;
-      color: #fff;
-      font-family: 'Geist Mono', ui-monospace, monospace;
-    }
-
-    @keyframes cs-enter {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .wrap {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 120px 24px 80px;
-      animation: cs-enter 0.45s cubic-bezier(0.33, 1, 0.68, 1) 0.15s both;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 18px;
-    }
-
-    .title {
-      font-family: 'Panchang', sans-serif;
-      font-weight: 600;
-      font-size: clamp(2.5rem, 7vw, 4.5rem);
-      line-height: 1;
-      margin: 0 0 24px;
-      color: #fff;
-    }
-
-    .intro {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: rgba(255, 255, 255, 0.7);
-      margin: 0 0 48px;
-      white-space: pre-line;
-    }
-
-    .hero-image {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 16px;
-      margin: 0 0 48px;
-    }
-
-    .coming-soon {
-      border: 1px dashed rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
-      padding: 60px 32px;
-      text-align: center;
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .sections {
-      display: flex;
-      flex-direction: column;
-      gap: 48px;
-    }
-
-    .hero-placeholder {
-      aspect-ratio: 16 / 10;
-      border-radius: 16px;
-      background:
-        radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.05), transparent 40%),
-        linear-gradient(135deg, #1c1e1c 0%, #0e0f0d 100%);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.35);
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .section {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .section-heading {
-      font-family: 'Panchang', sans-serif;
-      font-weight: 600;
-      font-size: 1.5rem;
-      line-height: 1.15;
-      margin: 0;
-      color: #fff;
-    }
-
-    .section-body,
-    .paragraph-body {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: rgba(255, 255, 255, 0.7);
-      margin: 0;
-      white-space: pre-line;
-    }
-
-    .section-list {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: rgba(255, 255, 255, 0.7);
-      margin: 12px 0 0;
-      padding-left: 1.25rem;
-    }
-
-    .section-list li {
-      margin-bottom: 6px;
-    }
-
-    .section-list li::marker {
-      color: rgba(255, 255, 255, 0.35);
-    }
-
-    .callout {
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .callout-eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.45);
-    }
-
-    .callout-body {
-      font-size: 0.9rem;
-      line-height: 1.7;
-      color: rgba(255, 255, 255, 0.75);
-      white-space: pre-line;
-      margin: 0;
-    }
-
-    .callout-quote {
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      padding-top: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .callout-quote-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.4);
-    }
-
-    .callout-quote-text {
-      font-size: 0.95rem;
-      color: var(--accent, #fff);
-    }
-
-    .feature {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      background: #1a1b19;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 20px;
-      padding: 16px 16px 24px;
-      margin: 0;
-    }
-
-    .feature-image {
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      border-radius: 12px;
-      background:
-        repeating-linear-gradient(
-          45deg,
-          rgba(255, 255, 255, 0.02) 0 12px,
-          rgba(255, 255, 255, 0.04) 12px 24px
-        ),
-        #3a3a38;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
-    }
-
-    img.feature-image,
-    video.feature-image {
-      display: block;
-      width: 100%;
-      height: auto;
-      aspect-ratio: auto;
-      background: none;
-      object-fit: contain;
-    }
-
-    .feature-caption {
-      font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.7);
-      line-height: 1.6;
-      padding: 0 8px;
-    }
-
-    .bare-image {
-      display: block;
-      width: 100%;
-      height: auto;
-      margin: 0;
-    }
-
-    .carousel {
-      position: relative;
-      width: 100%;
-      border-radius: 12px;
-      overflow: hidden;
-      aspect-ratio: 4 / 3;
-      background: #0e0f0d;
-    }
-
-    .carousel-track {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      transition: transform 0.45s cubic-bezier(0.33, 1, 0.68, 1);
-      will-change: transform;
-    }
-
-    .carousel-slide {
-      flex: 0 0 100%;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .carousel-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 40px;
-      height: 40px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #fff;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      opacity: 0;
-      transition: opacity 0.2s ease, background 0.2s ease;
-      z-index: 2;
-    }
-
-    .carousel-arrow:hover {
-      background: rgba(0, 0, 0, 0.65);
-    }
-
-    .carousel-arrow svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-    }
-
-    .carousel-arrow.prev { left: 12px; }
-    .carousel-arrow.next { right: 12px; }
-
-    .carousel-arrow:disabled {
-      opacity: 0 !important;
-      pointer-events: none;
-    }
-
-    .carousel:hover .carousel-arrow:not(:disabled) {
-      opacity: 1;
-    }
-
-    @media (hover: none) {
-      .carousel-arrow:not(:disabled) {
-        opacity: 1;
-      }
-    }
-
-    .carousel-dots {
-      position: absolute;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 8px;
-      z-index: 2;
-      padding: 6px 10px;
-      background: rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-radius: 999px;
-    }
-
-    .carousel-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.35);
-      border: 0;
-      padding: 0;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.2s ease;
-    }
-
-    .carousel-dot.active {
-      background: #fff;
-      transform: scale(1.15);
-    }
-
-    .back-rail {
-      margin-bottom: 32px;
-    }
-
-    .back {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: rgba(255, 255, 255, 0.7);
-      padding: 8px 14px 8px 10px;
-      border-radius: 999px;
-      font-family: inherit;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      animation: cs-enter 0.4s ease-out both;
-      transition: color 0.2s, background 0.2s;
-    }
-
-    .back:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.09);
-    }
-
-    .back svg {
-      width: 14px;
-      height: 14px;
-      fill: currentColor;
-    }
-
-    .not-found {
-      text-align: center;
-      color: rgba(255, 255, 255, 0.5);
-      padding-top: 160px;
-    }
-  </style>
-
-  <div class="wrap">
-    <div class="back-rail">
-      <button class="back" part="back" aria-label="Back to home">
-        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-        Back
-      </button>
-    </div>
-    <div class="content"></div>
-  </div>
-`;function $(e){return String(e).replace(/&/g,`&amp;`).replace(/</g,`&lt;`).replace(/>/g,`&gt;`)}function Xi(e){return!e||!e.length?``:`<ul class="section-list">${e.map(e=>`<li>${$(e)}</li>`).join(``)}</ul>`}function Zi(e){switch(e.type){case`hero-placeholder`:return`<div class="hero-placeholder">${$(e.label??``)}</div>`;case`section`:return`
-        <section class="section">
-          <h2 class="section-heading">${$(e.heading)}</h2>
-          ${e.body?`<p class="section-body">${$(e.body)}</p>`:``}
-          ${Xi(e.items)}
+    `).join(``)}};customElements.define(`contact-links`,da);function $(e){return String(e??``).replace(/&/g,`&amp;`).replace(/</g,`&lt;`).replace(/>/g,`&gt;`).replace(/"/g,`&quot;`)}function fa(e){return!e||!e.length?``:`<ul class="cs-section-list">${e.map(e=>`<li>${$(e)}</li>`).join(``)}</ul>`}function pa(e){switch(e.type){case`hero-placeholder`:return`<div class="cs-hero-placeholder">${$(e.label??``)}</div>`;case`section`:return`
+        <section class="cs-section">
+          <h2 class="cs-section-heading">${$(e.heading)}</h2>
+          ${e.body?`<p class="cs-section-body">${$(e.body)}</p>`:``}
+          ${fa(e.items)}
         </section>
       `;case`paragraph`:return`
-        <p class="paragraph-body">${$(e.body)}</p>
-        ${Xi(e.items)}
+        <p class="cs-paragraph-body">${$(e.body)}</p>
+        ${fa(e.items)}
       `;case`callout`:return`
-        <aside class="callout">
-          ${e.eyebrow?`<div class="callout-eyebrow">${$(e.eyebrow)}</div>`:``}
-          <p class="callout-body">${$(e.body)}</p>
+        <aside class="cs-callout">
+          ${e.eyebrow?`<div class="cs-callout-eyebrow">${$(e.eyebrow)}</div>`:``}
+          <p class="cs-callout-body">${$(e.body)}</p>
           ${e.quote?`
-            <div class="callout-quote">
-              ${e.quoteLabel?`<div class="callout-quote-label">${$(e.quoteLabel)}</div>`:``}
-              <div class="callout-quote-text">${$(e.quote)}</div>
+            <div class="cs-callout-quote">
+              ${e.quoteLabel?`<div class="cs-callout-quote-label">${$(e.quoteLabel)}</div>`:``}
+              <div class="cs-callout-quote-text">${$(e.quote)}</div>
             </div>
           `:``}
         </aside>
-      `;case`image`:{let t=e.aspectRatio?` style="aspect-ratio: ${e.aspectRatio};"`:``;return`<img class="bare-image" src="${e.image}" alt="${$(e.label??``)}"${t} />`}case`feature`:{let t=e.aspectRatio?` style="aspect-ratio: ${e.aspectRatio};"`:``,n;return n=e.video?`<video class="feature-image" autoplay loop muted playsinline preload="auto"${t}><source src="${e.video}" type="video/mp4" /></video>`:e.image?`<img class="feature-image" src="${e.image}" alt="${$(e.caption??e.label??``)}"${t} />`:`<div class="feature-image"${t}>${$(e.label??``)}</div>`,`
-        <figure class="feature">
+      `;case`image`:{let t=e.aspectRatio?` style="aspect-ratio: ${e.aspectRatio};"`:``;return e.image?`<img class="cs-bare-image" src="${e.image}" alt="${$(e.label??``)}"${t} />`:``}case`feature`:{let t=e.aspectRatio?` style="aspect-ratio: ${e.aspectRatio};"`:``,n=``;return e.video?n=`<video class="cs-feature-image" autoplay loop muted playsinline preload="auto"${t}><source src="${e.video}" type="video/mp4" /></video>`:e.image&&(n=`<img class="cs-feature-image" src="${e.image}" alt="${$(e.caption??e.label??``)}"${t} />`),`
+        <figure class="cs-feature">
           ${n}
-          ${e.caption?`<figcaption class="feature-caption">${$(e.caption)}</figcaption>`:``}
+          ${e.caption?`<figcaption class="cs-feature-caption">${$(e.caption)}</figcaption>`:``}
         </figure>
-      `}case`carousel`:{let t=e.images??[],n=t.map(e=>`
-            <div class="carousel-slide">
+      `}case`carousel`:{let t=e.images??[];if(!t.length)return e.caption?`<figure class="cs-feature"><figcaption class="cs-feature-caption">${$(e.caption)}</figcaption></figure>`:``;let n=t.map(e=>`
+            <div class="cs-carousel-slide">
               <img src="${e.src}" alt="${$(e.alt??``)}" />
             </div>
-          `).join(``),r=t.map((e,t)=>`<button class="carousel-dot${t===0?` active`:``}" data-index="${t}" aria-label="Go to slide ${t+1}"></button>`).join(``);return`
-        <figure class="feature">
-          <div class="carousel" data-count="${t.length}">
-            <div class="carousel-track">${n}</div>
-            <button class="carousel-arrow prev" aria-label="Previous slide" disabled>
+          `).join(``),r=t.map((e,t)=>`<button class="cs-carousel-dot${t===0?` active`:``}" data-index="${t}" aria-label="Go to slide ${t+1}"></button>`).join(``);return`
+        <figure class="cs-feature">
+          <div class="cs-carousel" data-count="${t.length}">
+            <div class="cs-carousel-track">${n}</div>
+            <button class="cs-carousel-arrow prev" aria-label="Previous slide" disabled>
               <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
             </button>
-            <button class="carousel-arrow next" aria-label="Next slide"${t.length<=1?` disabled`:``}>
+            <button class="cs-carousel-arrow next" aria-label="Next slide"${t.length<=1?` disabled`:``}>
               <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
             </button>
-            <div class="carousel-dots">${r}</div>
+            <div class="cs-carousel-dots">${r}</div>
           </div>
-          ${e.caption?`<figcaption class="feature-caption">${$(e.caption)}</figcaption>`:``}
+          ${e.caption?`<figcaption class="cs-feature-caption">${$(e.caption)}</figcaption>`:``}
         </figure>
-      `}default:return``}}var Qi=class extends HTMLElement{static get observedAttributes(){return[`slug`]}constructor(){super(),this.attachShadow({mode:`open`}),this.shadowRoot.appendChild(Yi.content.cloneNode(!0)),this._content=this.shadowRoot.querySelector(`.content`),this._back=this.shadowRoot.querySelector(`.back`)}connectedCallback(){this._back.addEventListener(`click`,this._onBack),this._render()}disconnectedCallback(){this._back.removeEventListener(`click`,this._onBack),this._teardownVideoPlayback?.(),this._teardownCarousels?.()}attributeChangedCallback(){this.isConnected&&this._render()}_onBack=()=>Bi(`/`);_render(){let e=Li(this.getAttribute(`slug`)??``);if(!e){this._content.innerHTML=`<div class="not-found">Project not found — <a href="/" style="color: #99cc00">back home</a></div>`;return}this.style.setProperty(`--accent`,e.accent);let t=e.heroVideo?`<video class="hero-image" autoplay loop muted playsinline preload="auto"><source src="${e.heroVideo}" type="video/mp4" /></video>`:e.heroImage?`<img class="hero-image" src="${e.heroImage}" alt="${e.title}" />`:``,n=e.sections?`<div class="sections">${e.sections.map(Zi).join(``)}</div>`:`<div class="coming-soon">Coming soon</div>`,r=e.intro?`<p class="intro">${$(e.intro)}</p>`:``;this._content.innerHTML=`
-      <div class="eyebrow">Case study · ${e.year}</div>
-      <h1 class="title">${e.title}</h1>
-      ${r}
-      ${t}
-      ${n}
-    `,this._setupVideoPlayback(),this._setupCarousels()}_setupVideoPlayback(){this._teardownVideoPlayback?.();let e=Array.from(this._content.querySelectorAll(`video`));if(!e.length)return;let t=()=>{let t=window.innerHeight;for(let n of e){let e=n.getBoundingClientRect(),r=e.top+e.height/2;r>0&&r<t?n.paused&&n.play().catch(()=>{}):n.paused||n.pause()}},n=0,r=()=>{n||=requestAnimationFrame(()=>{n=0,t()})};window.addEventListener(`scroll`,r,{passive:!0}),window.addEventListener(`resize`,r),e.forEach(e=>e.addEventListener(`loadedmetadata`,t)),t(),this._teardownVideoPlayback=()=>{window.removeEventListener(`scroll`,r),window.removeEventListener(`resize`,r),n&&cancelAnimationFrame(n),this._teardownVideoPlayback=null}}_setupCarousels(){this._teardownCarousels?.();let e=Array.from(this._content.querySelectorAll(`.carousel`));if(!e.length)return;let t=e.map(e=>{let t=e.querySelector(`.carousel-track`),n=e.querySelector(`.carousel-arrow.prev`),r=e.querySelector(`.carousel-arrow.next`),i=Array.from(e.querySelectorAll(`.carousel-dot`)),a=Number(e.dataset.count)||0,o=0,s=()=>{t.style.transform=`translateX(-${o*100}%)`,i.forEach((e,t)=>e.classList.toggle(`active`,t===o)),n.disabled=o===0,r.disabled=o>=a-1},c=e=>{o=Math.max(0,Math.min(a-1,e)),s()},l=()=>c(o-1),u=()=>c(o+1),d=e=>{let t=Number(e.currentTarget.dataset.index);Number.isNaN(t)||c(t)};return n.addEventListener(`click`,l),r.addEventListener(`click`,u),i.forEach(e=>e.addEventListener(`click`,d)),s(),()=>{n.removeEventListener(`click`,l),r.removeEventListener(`click`,u),i.forEach(e=>e.removeEventListener(`click`,d))}});this._teardownCarousels=()=>{t.forEach(e=>e()),this._teardownCarousels=null}}};customElements.define(`case-study-page`,Qi);var $i=document.querySelector(`#app`),ea=`Nathan Alspaugh | AI-Native Sr. Product Designer`;function ta(e){if(e.name===`case-study`){let t=Ii.find(t=>t.slug===e.slug);document.title=t?`Nathan Alspaugh | ${t.title}`:ea}else document.title=ea}function na(){$i.innerHTML=`
+      `}default:return``}}function ma(e){if(!e)return`<div class="cs-not-found">Project not found — <a href="/" style="color: #99cc00">back home</a></div>`;let t=e.heroVideo?`<video class="cs-hero-image" autoplay loop muted playsinline preload="auto"><source src="${e.heroVideo}" type="video/mp4" /></video>`:e.heroImage?`<img class="cs-hero-image" src="${e.heroImage}" alt="${$(e.title)}" />`:``,n=e.sections?`<div class="cs-sections">${e.sections.map(pa).join(``)}</div>`:`<div class="cs-coming-soon">Coming soon</div>`,r=e.intro?`<p class="cs-intro">${$(e.intro)}</p>`:``;return`
+    <div class="cs-eyebrow">Case study · ${$(e.year??``)}</div>
+    <h1 class="cs-title">${$(e.title)}</h1>
+    ${r}
+    ${t}
+    ${n}
+  `}var ha=class extends HTMLElement{static get observedAttributes(){return[`slug`]}constructor(){super(),this._onBack=this._onBack.bind(this)}connectedCallback(){this._render()}disconnectedCallback(){this._teardown()}attributeChangedCallback(e,t,n){!this.isConnected||t===n||this._render()}_render(){let e=ea(this.getAttribute(`slug`)??``);e?.accent&&this.style.setProperty(`--accent`,e.accent),this.innerHTML=`
+      <div class="cs-wrap">
+        <div class="cs-back-rail">
+          <button class="cs-back" data-back aria-label="Back to home">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            Back
+          </button>
+        </div>
+        <div class="cs-content">${ma(e)}</div>
+      </div>
+    `,this._wire()}_wire(){this._teardown();let e=this.querySelector(`.cs-back`);e&&e.addEventListener(`click`,this._onBack),this._setupVideoPlayback(),this._setupCarousels()}_teardown(){let e=this.querySelector(`.cs-back`);e&&e.removeEventListener(`click`,this._onBack),this._teardownVideoPlayback?.(),this._teardownCarousels?.()}_onBack(){ra(`/`)}_setupVideoPlayback(){this._teardownVideoPlayback?.();let e=Array.from(this.querySelectorAll(`video`));if(!e.length)return;let t=()=>{let t=window.innerHeight;for(let n of e){let e=n.getBoundingClientRect(),r=e.top+e.height/2;r>0&&r<t?n.paused&&n.play().catch(()=>{}):n.paused||n.pause()}},n=0,r=()=>{n||=requestAnimationFrame(()=>{n=0,t()})};window.addEventListener(`scroll`,r,{passive:!0}),window.addEventListener(`resize`,r),e.forEach(e=>e.addEventListener(`loadedmetadata`,t)),t(),this._teardownVideoPlayback=()=>{window.removeEventListener(`scroll`,r),window.removeEventListener(`resize`,r),n&&cancelAnimationFrame(n),this._teardownVideoPlayback=null}}_setupCarousels(){this._teardownCarousels?.();let e=Array.from(this.querySelectorAll(`.cs-carousel`));if(!e.length)return;let t=e.map(e=>{let t=e.querySelector(`.cs-carousel-track`),n=e.querySelector(`.cs-carousel-arrow.prev`),r=e.querySelector(`.cs-carousel-arrow.next`),i=Array.from(e.querySelectorAll(`.cs-carousel-dot`)),a=Number(e.dataset.count)||0,o=0,s=()=>{t.style.transform=`translateX(-${o*100}%)`,i.forEach((e,t)=>e.classList.toggle(`active`,t===o)),n.disabled=o===0,r.disabled=o>=a-1},c=e=>{o=Math.max(0,Math.min(a-1,e)),s()},l=()=>c(o-1),u=()=>c(o+1),d=e=>{let t=Number(e.currentTarget.dataset.index);Number.isNaN(t)||c(t)};return n.addEventListener(`click`,l),r.addEventListener(`click`,u),i.forEach(e=>e.addEventListener(`click`,d)),s(),()=>{n.removeEventListener(`click`,l),r.removeEventListener(`click`,u),i.forEach(e=>e.removeEventListener(`click`,d))}});this._teardownCarousels=()=>{t.forEach(e=>e()),this._teardownCarousels=null}}};customElements.define(`case-study-page`,ha);var ga=`https://nathanalspaugh.com`,_a=`Nathan Alspaugh | AI-Native Sr. Product Designer`,va=`Senior product designer leveraging AI to ship ambitious work. Case studies, contact, and selected projects.`,ya=`${ga}/og-image.png`;function ba(e,t){return e.name===`case-study`&&t?{title:`Nathan Alspaugh | ${t.title}`,description:t.description??`Senior product designer leveraging AI to ship ambitious work. Case studies, contact, and selected projects.`,url:`${ga}/work/${t.slug}`,ogImage:ya}:{title:_a,description:va,url:ga+`/`,ogImage:ya}}function xa(e,t,n){let r=document.head.querySelector(e);if(!r){r=document.createElement(`meta`);let[t,n]=e.replace(/^meta\[|\]$/g,``).split(`=`);r.setAttribute(t,n.replace(/"/g,``)),document.head.appendChild(r)}r.setAttribute(t,n)}function Sa(e,t){let n=document.head.querySelector(`link[rel="${e}"]`);n||(n=document.createElement(`link`),n.setAttribute(`rel`,e),document.head.appendChild(n)),n.setAttribute(`href`,t)}function Ca({title:e,description:t,url:n,ogImage:r}){document.title=e,xa(`meta[name="description"]`,`content`,t),xa(`meta[property="og:title"]`,`content`,e),xa(`meta[property="og:description"]`,`content`,t),xa(`meta[property="og:url"]`,`content`,n),xa(`meta[property="og:image"]`,`content`,r),xa(`meta[property="og:type"]`,`content`,`website`),xa(`meta[name="twitter:card"]`,`content`,`summary_large_image`),xa(`meta[name="twitter:title"]`,`content`,e),xa(`meta[name="twitter:description"]`,`content`,t),xa(`meta[name="twitter:image"]`,`content`,r),Sa(`canonical`,n)}var wa=document.querySelector(`#app`);function Ta(){wa.querySelector(`.hero`)||(wa.innerHTML=`
     <section class="hero">
       <div class="hero-name" aria-hidden="true">
         <span>Nathan</span>
@@ -1375,4 +991,4 @@ From there, a second insight locked the design in: the canvas isn't paired with 
         </div>
       </div>
     </section>
-  `}function ra(e){$i.innerHTML=`<case-study-page slug="${e}"></case-study-page>`}function ia(e){ta(e),e.name===`case-study`?ra(e.slug):na()}ia(zi()),Vi(ia);
+  `)}function Ea(e){wa.querySelector(`case-study-page[slug="${CSS.escape(e)}"]`)||(wa.innerHTML=`<case-study-page slug="${e}"></case-study-page>`)}function Da(e){Ca(ba(e,e.name===`case-study`?ea(e.slug):null)),e.name===`case-study`?Ea(e.slug):Ta()}Da(na()),ia(Da);
