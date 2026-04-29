@@ -220,3 +220,404 @@ body {
     order: -1;
   }
 }
+
+/* SEO fallback: light-DOM children inside shadow-DOM custom elements stay in
+   the document tree (visible to crawlers/AI agents) but aren't projected by
+   their host's shadow root, so users still see the shadow rendering. */
+home-bio > .seo-fallback,
+key-card > .seo-fallback,
+work-list > .seo-fallback,
+contact-links > .seo-fallback {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ===========================================================================
+   case-study-page (light DOM)
+   ========================================================================= */
+
+case-study-page {
+  display: block;
+  min-height: 100vh;
+  color: #fff;
+  font-family: var(--font-geist-mono);
+}
+
+@keyframes cs-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+case-study-page .cs-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+  animation: cs-enter 0.45s cubic-bezier(0.33, 1, 0.68, 1) 0.15s both;
+}
+
+case-study-page .cs-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 18px;
+}
+
+case-study-page .cs-title {
+  font-family: 'Panchang', sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  line-height: 1;
+  margin: 0 0 24px;
+  color: #fff;
+}
+
+case-study-page .cs-intro {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 48px;
+  white-space: pre-line;
+}
+
+case-study-page .cs-hero-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  margin: 0 0 48px;
+}
+
+case-study-page .cs-coming-soon {
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 60px 32px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+case-study-page .cs-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+case-study-page .cs-hero-placeholder {
+  aspect-ratio: 16 / 10;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.05), transparent 40%),
+    linear-gradient(135deg, #1c1e1c 0%, #0e0f0d 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+case-study-page .cs-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+case-study-page .cs-section-heading {
+  font-family: 'Panchang', sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.15;
+  margin: 0;
+  color: #fff;
+}
+
+case-study-page .cs-section-body,
+case-study-page .cs-paragraph-body {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  white-space: pre-line;
+}
+
+case-study-page .cs-section-list {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 12px 0 0;
+  padding-left: 1.25rem;
+}
+
+case-study-page .cs-section-list li {
+  margin-bottom: 6px;
+}
+
+case-study-page .cs-section-list li::marker {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+case-study-page .cs-callout {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+case-study-page .cs-callout-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+case-study-page .cs-callout-body {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.75);
+  white-space: pre-line;
+  margin: 0;
+}
+
+case-study-page .cs-callout-quote {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+case-study-page .cs-callout-quote-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+case-study-page .cs-callout-quote-text {
+  font-size: 0.95rem;
+  color: var(--accent, #fff);
+}
+
+case-study-page .cs-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #1a1b19;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 16px 16px 24px;
+  margin: 0;
+}
+
+case-study-page .cs-feature-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.02) 0 12px,
+      rgba(255, 255, 255, 0.04) 12px 24px
+    ),
+    #3a3a38;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+}
+
+case-study-page img.cs-feature-image,
+case-study-page video.cs-feature-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  background: none;
+  object-fit: contain;
+}
+
+case-study-page .cs-feature-caption {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  padding: 0 8px;
+}
+
+case-study-page .cs-bare-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+case-study-page .cs-carousel {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: #0e0f0d;
+}
+
+case-study-page .cs-carousel-track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: transform;
+}
+
+case-study-page .cs-carousel-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+case-study-page .cs-carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+case-study-page .cs-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+  z-index: 2;
+}
+
+case-study-page .cs-carousel-arrow:hover {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+case-study-page .cs-carousel-arrow svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+case-study-page .cs-carousel-arrow.prev { left: 12px; }
+case-study-page .cs-carousel-arrow.next { right: 12px; }
+
+case-study-page .cs-carousel-arrow:disabled {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+case-study-page .cs-carousel:hover .cs-carousel-arrow:not(:disabled) {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  case-study-page .cs-carousel-arrow:not(:disabled) {
+    opacity: 1;
+  }
+}
+
+case-study-page .cs-carousel-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 999px;
+}
+
+case-study-page .cs-carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.35);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+case-study-page .cs-carousel-dot.active {
+  background: #fff;
+  transform: scale(1.15);
+}
+
+case-study-page .cs-back-rail {
+  margin-bottom: 32px;
+}
+
+case-study-page .cs-back {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 8px 14px 8px 10px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  animation: cs-enter 0.4s ease-out both;
+  transition: color 0.2s, background 0.2s;
+}
+
+case-study-page .cs-back:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+case-study-page .cs-back svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+case-study-page .cs-not-found {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  padding-top: 160px;
+}

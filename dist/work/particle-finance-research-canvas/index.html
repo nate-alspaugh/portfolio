@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nathan Alspaugh | Particle — Finance Research Canvas</title>
+    <meta name="description" content="An AI-powered spatial research canvas that lets investors capture, annotate, and connect company data. Designed at Particle." />
+    <link rel="canonical" href="https://nathanalspaugh.com/work/particle-finance-research-canvas" />
+    <meta property="og:title" content="Nathan Alspaugh | Particle — Finance Research Canvas" />
+    <meta property="og:description" content="An AI-powered spatial research canvas that lets investors capture, annotate, and connect company data. Designed at Particle." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nathanalspaugh.com/work/particle-finance-research-canvas" />
+    <meta property="og:image" content="https://nathanalspaugh.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Nathan Alspaugh | Particle — Finance Research Canvas" />
+    <meta name="twitter:description" content="An AI-powered spatial research canvas that lets investors capture, annotate, and connect company data. Designed at Particle." />
+    <meta name="twitter:image" content="https://nathanalspaugh.com/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Nathan Alspaugh",
+        "jobTitle": "AI-Native Senior Product Designer",
+        "url": "https://nathanalspaugh.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Bountiful",
+          "addressRegion": "UT",
+          "addressCountry": "US"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/nathan-alspaugh/",
+          "https://dribbble.com/nathan-alspaugh"
+        ]
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/index-CMTvcyID.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CEq1ZQ_4.css">
+  </head>
+  <body>
+    <div id="app">
+    <case-study-page slug="particle-finance-research-canvas" style="--accent: #99cc00;">
+      <div class="cs-wrap">
+        <div class="cs-back-rail">
+          <button class="cs-back" data-back aria-label="Back to home">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            Back
+          </button>
+        </div>
+        <div class="cs-content">
+    <div class="cs-eyebrow">Case study · 2026</div>
+    <h1 class="cs-title">Particle — Finance Research Canvas</h1>
+    <p class="cs-intro">After a recent pivot to focus on a new ICP (retail and institutional investors) the idea was that by coupling finance information like stock pricing and trends with data we are able to pull in from things like the news (check out Particle's rad mobile app) via our API, we'd be able to surface rich insights to help them make better financial decisions. A big factor in being able to explore a feature like this was that our API was really teeing up some great data along with MCP tools to sink our teeth into as builders.</p>
+    
+    <div class="cs-sections">
+        <section class="cs-section">
+          <h2 class="cs-section-heading">Problem Space</h2>
+          <p class="cs-section-body">While we pivoted to our new ICP, something I heard from preliminary research (and ultimately what I couldn't stop thinking about) was that investors were using archaic methods of documenting research like links, screenshots, files/documents, and their thoughts in software like their notes app to document their research. While not the same, I've experienced similar workflows that made the process brittle for maintaining deep work because having to bounce around from place to place made it difficult to flow from thought to thought. Early conversations with Tyler in which we had thought about being able to &quot;grab&quot; an element from any page on the app and then drop it into a &quot;box&quot; to annotate or save for later had given me some early ideas of how to approach this feature.</p>
+          
+        </section>
+      
+        <section class="cs-section">
+          <h2 class="cs-section-heading">Initial Brainstorming</h2>
+          <p class="cs-section-body">I wanted to explore how we could solve this problem, intuitively I thought of some kind of canvas interaction but supercharged with the ability to have AI help you answer your questions, organize your research, and keep you in flow. I used a homegrown skill called /brainstorm that Marcel had cooked up during his work on the API to start teasing out a more solid concept and some base ideas. This allowed me to go back and forth with Claude that ultimately stretched my thinking of what this could be a lot sooner in the process vs &quot;having to see it&quot; before getting to explore those.</p>
+          
+        </section>
+      
+        <aside class="cs-callout">
+          <div class="cs-callout-eyebrow">Initial Brainstorm Summary from Claude Session</div>
+          <p class="cs-callout-body">The canvas feature began in early February 2026 as a loose intuition: what if users could grab research cards — company profiles, data points, artifacts scattered across the app — and drop them onto a shared surface to annotate, cluster, and draw connections between them? The initial reference points were Miro and FigJam, but within the first exchange the framing shifted. Rather than treat the canvas as a blank whiteboard bolted onto the app, the brainstorm pushed toward a &quot;spatial thinking layer&quot; whose value came precisely from the structured data already flowing through the product. That reframing produced the feature's guiding metaphor — canvas as collaborator — an intelligent container that accumulated context and actively looked for patterns across the items placed into it. The most exciting thread to emerge was the idea that the canvas could surface correlations you wouldn't have found on your own, elevating it from a documentation tool into a thinking partner.
+
+From there, a second insight locked the design in: the canvas isn't paired with a conversation, the canvas is the conversation. A query doesn't produce a linear report that you then drag onto a canvas; the response materializes spatially, and every subsequent interaction evolves that spatial artifact. None of this was implementation yet — no code, no components, no routes — but the conceptual scaffolding that shipped was already in place by the end of the brainstorm.</p>
+          
+            <div class="cs-callout-quote">
+              <div class="cs-callout-quote-label">Notable Quote</div>
+              <div class="cs-callout-quote-text">&quot;Canvas as a collaborator&quot;</div>
+            </div>
+          
+        </aside>
+      
+        <section class="cs-section">
+          <h2 class="cs-section-heading">Starting Functionality</h2>
+          <p class="cs-section-body">Based on that brainstorming session I had a decent list of functionality. I then could prioritize initial features to start playing around with the feel of the interaction to demo to the team.</p>
+          
+        </section>
+      
+        <figure class="cs-feature">
+          
+          <figcaption class="cs-feature-caption">Annotation tools — sticky notes, floating text, and lines to annotate your thoughts on the canvas</figcaption>
+        </figure>
+      
+        <figure class="cs-feature">
+          
+          <figcaption class="cs-feature-caption">Add company node from publicly traded company</figcaption>
+        </figure>
+      <figure class="cs-feature"><figcaption class="cs-feature-caption">LLM-driven queries with easy point-and-click context adding</figcaption></figure>
+        <figure class="cs-feature">
+          
+          <figcaption class="cs-feature-caption">Select multiple canvas items to add context to your prompt — helps mitigate typing fatigue when you're in flow researching</figcaption>
+        </figure>
+      
+        <figure class="cs-feature">
+          
+          <figcaption class="cs-feature-caption">Easily extract insights by highlighting content from a query and creating a sticky note</figcaption>
+        </figure>
+      
+        <p class="cs-paragraph-body">Once I had a working prototype on paper, I had presented it to the team during our weekly call. It spurred an awesome conversation with feedback like &quot;this could be our defining feature&quot; and &quot;I feel like you just invented the mouse&quot;. A lot of great back and forth around its potential and inspiration of what to add to it. This was actually one of the greatest moments in my career.</p>
+        
+      
+        <section class="cs-section">
+          <h2 class="cs-section-heading">Following Additions / Improvements</h2>
+          <p class="cs-section-body">The following weeks were filled with awesome input and collaboration from the team. We got to play with it and identify some improvements and opportunities.</p>
+          
+        </section>
+      
+        <figure class="cs-feature">
+          
+          <figcaption class="cs-feature-caption">Better zero state — gives users an idea of what they could start adding to the canvas</figcaption>
+        </figure>
+      
+        <figure class="cs-feature">
+          
+          <figcaption class="cs-feature-caption">File uploading — query a file and extract insights (shout out to Marcel)</figcaption>
+        </figure>
+      
+        <figure class="cs-feature">
+          
+          <figcaption class="cs-feature-caption">Out-of-the-box company actions from Tyler's work on insights</figcaption>
+        </figure>
+      
+        <section class="cs-section">
+          <h2 class="cs-section-heading">Research Feedback Highlights</h2>
+          <p class="cs-section-body">After we went through a round of updates, it was demoed to our design partners and potential customers mostly to gauge market appetite. We noticed some top level themes begin to emerge:</p>
+          
+        </section>
+      
+        <figure class="cs-feature">
+          
+          <figcaption class="cs-feature-caption">Emerging feedback trends from our demos</figcaption>
+        </figure>
+      
+        <section class="cs-section">
+          <h2 class="cs-section-heading">Outcomes and Learnings</h2>
+          <p class="cs-section-body">While my time at Particle has come to a close before I got to work on this more, I learned a lot about experimenting with product ideas quickly with AI. This feature work got us some really valuable feedback and created a spot for collaborative discussion. Ultimately leadership decided to pivot away from Particle Finance to an API subscription model based on the incredible work they've accumulated over the last couple of years. I loved my time working on this product and team and am excited to tackle more projects like this in the future.</p>
+          
+        </section>
+      
+        <p class="cs-paragraph-body">What I would try to tackle if I were still working on this:</p>
+        <ul class="cs-section-list"><li>Context driven insights: What if it could auto surface insights to the user based on the context of the entire canvas?</li><li>File authoring: Either using point and click selections or the context of the entire canvas, what if you could make things like slide-shows, reports, etc from it?</li><li>Canvas Templates: Give users some ready templates for research use cases that let them see how the product could be utilized.</li><li>Auto exploring: Could we &quot;peek ahead&quot; before committing something to the canvas by having nodes &quot;auto explode&quot; off of a node that you have selected to get an idea of what you could explore.</li></ul>
+      </div>
+  </div>
+      </div>
+    </case-study-page>
+  </div>
+  </body>
+</html>
