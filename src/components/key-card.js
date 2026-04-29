@@ -3,7 +3,9 @@ import { WebHaptics } from 'web-haptics';
 import cutoutUrl from '../assets/nate-cutout-2025.png';
 
 // Tap-and-hold tilt activation for ≤768px touch/stylus input.
-const HOLD_DELAY_MS = 200;
+const HOLD_DELAY_MS = 250;
+const POP_DURATION_S = 0.22;   // Scale-up animation duration on activation.
+const POP_DURATION_MS = POP_DURATION_S * 1000;
 const IDLE_TOUCH_SCALE = 0.95; // Resting scale on touch viewports.
 const ACTIVE_SCALE = 1;        // Pops up to full size on activation.
 
@@ -73,12 +75,18 @@ template.innerHTML = `
       }
     }
 
-    /* On touch viewports, allow vertical scroll during the 150ms grace
-       window. After tap-and-hold activation, JS calls preventDefault on
-       pointermove to claim the gesture. */
+    /* On touch viewports, allow vertical scroll during the hold grace
+       window — if the user wants to scroll the page, a quick vertical
+       drag on the card scrolls and the browser fires pointercancel,
+       which aborts the hold cleanly. After tap-and-hold activation
+       (card popped to scale 1), JS adds .tilt-active to lock out scroll
+       so finger movement is owned by the tilt. */
     @media (max-width: 768px) {
       .key-card {
         touch-action: pan-y;
+      }
+      .key-card.tilt-active {
+        touch-action: none;
       }
     }
 
@@ -429,6 +437,7 @@ class KeyCard extends HTMLElement {
     this._onPointerUp = this._onPointerUp.bind(this);
     this._onPointerCancel = this._onPointerCancel.bind(this);
     this._onContextMenu = this._onContextMenu.bind(this);
+    this._onDocTouchMove = this._onDocTouchMove.bind(this);
     this._tick = this._tick.bind(this);
     this._onResize = this._onResize.bind(this);
     this._onIntersect = this._onIntersect.bind(this);
@@ -457,7 +466,11 @@ class KeyCard extends HTMLElement {
         ? window.matchMedia('(max-width: 768px)')
         : null;
     this._card.addEventListener('pointerdown', this._onPointerDown);
-    this._card.addEventListener('pointermove', this._onPointerMove);
+    // Non-passive pointermove so preventDefault() actually claims the gesture
+    // post-activation. With touch-action: pan-y locked at pointerdown, only
+    // preventDefault on a non-passive listener can stop the browser from
+    // committing to vertical scroll once the user starts dragging.
+    this._card.addEventListener('pointermove', this._onPointerMove, { passive: false });
     this._card.addEventListener('pointerup', this._onPointerUp);
     this._card.addEventListener('pointercancel', this._onPointerCancel);
     this._card.addEventListener('contextmenu', this._onContextMenu);
@@ -502,6 +515,7 @@ class KeyCard extends HTMLElement {
       this._card.removeEventListener('pointercancel', this._onPointerCancel);
       this._card.removeEventListener('contextmenu', this._onContextMenu);
     }
+    document.removeEventListener('touchmove', this._onDocTouchMove, { passive: false });
     if (this._holdTimerId) {
       clearTimeout(this._holdTimerId);
       this._holdTimerId = 0;
@@ -759,12 +773,12 @@ class KeyCard extends HTMLElement {
 
     // Card stays at IDLE_TOUCH_SCALE during the grace window — no visual
     // change on press; the only visible transition is the pop on activation.
-    // The +150ms scheduled haptic confirms the press registered.
 
-    // Schedule the activation haptic via the library's RAF-based delay so it
-    // fires inside the user gesture chain (required by iOS Safari's
-    // checkbox-switch path).
-    this._haptics.trigger([{ delay: HOLD_DELAY_MS, duration: 25, intensity: 0.7 }]);
+    // Schedule the activation haptic so it fires when the card has finished
+    // popping up to scale 1 (HOLD_DELAY_MS hold + POP_DURATION_MS pop).
+    // Library's RAF-based delay keeps it inside the user gesture chain
+    // (required by iOS Safari's checkbox-switch path).
+    this._haptics.trigger([{ delay: HOLD_DELAY_MS + POP_DURATION_MS, duration: 25, intensity: 0.7 }]);
 
     if (this._holdTimerId) clearTimeout(this._holdTimerId);
     this._holdTimerId = setTimeout(() => {
@@ -818,13 +832,31 @@ class KeyCard extends HTMLElement {
     e.preventDefault();
   }
 
+  _onDocTouchMove(e) {
+    // Page-level scroll lock while tilt is active. iOS Safari decides
+    // scroll-vs-app at the first significant movement based on touch-action,
+    // and won't honor preventDefault on pointermove there — but it does
+    // honor preventDefault on a non-passive touchmove. Locking at document
+    // level kills scroll regardless of the in-flight gesture's locked
+    // touch-action value.
+    if (this._holdActive && e.cancelable) e.preventDefault();
+  }
+
   _activateHold() {
     this._holdActive = true;
+
+    // Lock out browser scroll now that tilt owns the gesture. Until this
+    // point touch-action: pan-y let the user scroll past the card. The
+    // document-level touchmove listener is what actually prevents scroll
+    // on iOS Safari (the class is a no-op for the in-flight gesture but
+    // keeps things tidy for any subsequent touch).
+    this._card.classList.add('tilt-active');
+    document.addEventListener('touchmove', this._onDocTouchMove, { passive: false });
 
     // Pop scale to 1.0 with a slight overshoot — "clicked into mode."
     gsap.to(this._card, {
       scale: ACTIVE_SCALE,
-      duration: 0.22,
+      duration: POP_DURATION_S,
       ease: 'back.out(1.7)',
       overwrite: 'auto',
     });
@@ -846,6 +878,11 @@ class KeyCard extends HTMLElement {
         this._card.releasePointerCapture(this._holdPointerId);
       } catch (_) {}
     }
+
+    // Restore scroll on the card so the next touch can pan the page
+    // again during its grace window.
+    this._card.classList.remove('tilt-active');
+    document.removeEventListener('touchmove', this._onDocTouchMove, { passive: false });
 
     // Settle scale back to the idle resting size on touch viewports.
     gsap.to(this._card, {
