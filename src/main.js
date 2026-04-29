@@ -9,6 +9,7 @@ import { parseRoute, onRouteChange } from './router.js'
 import { findProject } from './data/projects.js'
 import { applyMeta, buildRouteMeta } from './lib/meta.js'
 
+
 const app = document.querySelector('#app');
 
 function renderHome() {
