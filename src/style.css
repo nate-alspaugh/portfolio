@@ -74,6 +74,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-synthesis: none;
+  overflow-x: clip;
 }
 
 #app {
@@ -156,7 +157,8 @@ body {
     min-height: 100vh;
     padding: clamp(125px, calc(10vw + 44px), 140px) 0 48px;
     align-items: flex-start;
-    overflow: visible;
+    overflow-x: clip;
+    overflow-y: visible;
   }
 
   .home-grid {

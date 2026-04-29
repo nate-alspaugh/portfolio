@@ -8,6 +8,7 @@ import './pages/case-study.js'
 import { parseRoute, onRouteChange } from './router.js'
 import { projects } from './data/projects.js'
 
+
 const app = document.querySelector('#app');
 const BASE_TITLE = 'Nathan Alspaugh | AI-Native Sr. Product Designer';
 
