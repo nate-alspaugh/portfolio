@@ -10,7 +10,7 @@ export const projectsMeta = [
     year: '2026',
     description:
       'An AI-powered spatial research canvas that lets investors capture, annotate, and connect company data. Designed at Particle.',
-    intro: `After a recent pivot to focus on a new ICP (retail and institutional investors) the idea was that by coupling finance information like stock pricing and trends with data we are able to pull in from things like the news (check out Particle's rad mobile app) via our API, we'd be able to surface rich insights to help them make better financial decisions. A big factor in being able to explore a feature like this was that our API was really teeing up some great data along with MCP tools to sink our teeth into as builders.`,
+    intro: `Canvas as Collaborator: an AI powered spatial research surface for investors`,
     sections: [
       {
         type: 'section',
