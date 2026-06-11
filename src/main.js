@@ -8,6 +8,9 @@ import './pages/case-study.js'
 import { parseRoute, onRouteChange } from './router.js'
 import { findProject } from './data/projects.js'
 import { applyMeta, buildRouteMeta } from './lib/meta.js'
+import { inject } from '@vercel/analytics'
+
+inject()
 
 
 const app = document.querySelector('#app');
