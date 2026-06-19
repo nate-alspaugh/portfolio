@@ -37,8 +37,8 @@
         ]
       }
     </script>
-    <script type="module" crossorigin src="/assets/index-BlF7OIF2.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-WYIRCRdd.css">
+    <script type="module" crossorigin src="/assets/index-BBnyQdLV.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DPnyF4So.css">
   </head>
   <body>
     <div id="app">
@@ -53,13 +53,103 @@
         <div class="cs-content">
     <div class="cs-eyebrow">Case study · 2024</div>
     <h1 class="cs-title">Voze — Mobile App Redesign</h1>
-    <p class="cs-intro">Enabling Field Sales Reps to easily document their customer interactions while on the road</p>
+    <p class="cs-intro">Voze is a 20+ year-old voice-first CRM that lets field reps in heavy-duty trucking and parts sales document customer interactions by voice. These reps aren't at a desk — they drive planned routes while fielding inbound calls from other customers, and depending on the industry, sometimes handle parts delivery too. That leaves little time or mental energy to document their interactions. They also work closely with other teams like inside sales, fulfillment, and their managers.</p>
     
     <div class="cs-sections">
         <section class="cs-section">
-          <h2 class="cs-section-heading">Problem Space</h2>
+          <h2 class="cs-section-heading">Background</h2>
+          <p class="cs-section-body">Voze's archaic codebase was riddled with bugs and experience issues that were starting to get in the way of growth — a big problem once you've taken on VC investment. To gauge the impact, my PM reviewed every ticket labeled &quot;bug&quot; for the quarter and found 60%+ of our effort went there instead of new feature work. Leadership decided to rewrite the mobile app as a first step to overhaul the code and fix those bugs, and had our team address any UX issues we could along the way. We had about a month to finish the designs so engineers had the rest of the time to build (a quarter total to ship).</p>
           
+        </section>
+      
+        <section class="cs-section">
+          <h2 class="cs-section-heading">Goals</h2>
           
+          <ul class="cs-section-list"><li>Refresh the general style of the app</li><li>Find prominent UX issues, then determine which levers gave us the most &quot;bang for our buck&quot; to focus the redesign</li></ul>
+        </section>
+      
+        <section class="cs-section">
+          <h2 class="cs-section-heading">Discovery — Internal</h2>
+          <p class="cs-section-body">We knew there were problems, but wanted to understand how they affected our team members, so we talked with teams across the company. We also wanted a sense of how it was affecting our customers.
+
+What we needed to find out:
+- What existing UX issues were prevalent?
+- How was it affecting our company?
+- What teams were being affected?
+
+Emerging insights:
+- Customer churn — clients left to find alternatives, straining our CX team
+- Deals getting dropped — sales couldn't reliably demo to prospects; mid-demo snags
+- Mixed bag of retention — many failed to adopt the app, but those who did loved it
+- Strained engineering — lots of resources spent on bugs</p>
+          
+        </section>
+      
+        <aside class="cs-callout">
+          <div class="cs-callout-eyebrow">Key Takeaway</div>
+          <p class="cs-callout-body">Mixed bag of retention — why did some adopt it and love it while others failed to?</p>
+          
+        </aside>
+      
+        <section class="cs-section">
+          <h2 class="cs-section-heading">Discovery — Users</h2>
+          <p class="cs-section-body">This clue showed our users falling into a couple of camps:</p>
+          
+        </section>
+      
+        <p class="cs-paragraph-body"><span class="bold-text">Adopters</span> those who successfully began using it and found value in it.</p>
+        
+      <p class="inlineSubheading"><em><strong>What we needed to find out:</strong></em></p><ul class="cs-section-list"><li>Identify force multipliers — anywhere we could pour gas on the fire?</li><li>Why were they able to adopt it? What exact value were they getting?</li></ul>
+        <p class="cs-paragraph-body"><span class="bold-text">Inactive users</span> those who failed to incorporate it into their workflows — new or existing.</p>
+        
+      <p class="inlineSubheading"><em><strong>What we needed to find out:</strong></em></p><ul class="cs-section-list"><li>New users: what barriers kept it out of their workflow?</li><li>Existing users: why didn't they return to using it?</li></ul>
+        <figure class="cs-feature">
+          
+          <figcaption class="cs-feature-caption">Emerging Insights - Adopters: [screenshot of slide]</figcaption>
+        </figure>
+      
+        <figure class="cs-feature">
+          
+          <figcaption class="cs-feature-caption">Emerging Insights - Inactive: [screenshot of slide]</figcaption>
+        </figure>
+      
+        <section class="cs-section">
+          <h2 class="cs-section-heading">Prioritization</h2>
+          <p class="cs-section-body">Based on what we found, we focused on the &quot;Note Creation&quot; flow. To get the biggest bang for our buck, this area had the most surface that touched both optimization and adoption issues.</p>
+          
+        </section>
+      
+        <section class="cs-section">
+          <h2 class="cs-section-heading">Ideation — Brainstorming</h2>
+          <p class="cs-section-body">HMW: Make it easy for reps to quickly create a voice note?</p>
+          <ul class="cs-section-list"><li>Leverage AI to handle the metadata (label their notes)</li><li>Unified flow — no up-front branching between note types (type vs voice)</li><li>Slash any underused functionality</li></ul>
+        </section>
+      
+        <figure class="cs-feature">
+          
+          <figcaption class="cs-feature-caption">Before — existing voice note flow</figcaption>
+        </figure>
+      
+        <figure class="cs-feature">
+          
+          <figcaption class="cs-feature-caption">After — new unified note creation flow</figcaption>
+        </figure>
+      
+        <section class="cs-section">
+          <h2 class="cs-section-heading">Demo Feedback</h2>
+          <p class="cs-section-body">We showcased the flow for impression testing with some adopters and inactive users. Here are the insights we initially got:</p>
+          
+        </section>
+      
+        <figure class="cs-feature">
+          
+          <figcaption class="cs-feature-caption">Placeholder for screenshot of demo highlights</figcaption>
+        </figure>
+      
+        <section class="cs-section">
+          <h2 class="cs-section-heading">Conclusion — Takeaways</h2>
+          
+          <ul class="cs-section-list"><li>While I wasn't with the company at release, I stayed connected with Andrew. The launch was well received based on early feedback.</li><li>Dealing with constraints. We couldn't leverage automation for everything we'd like, so making the manual path easier was the next best thing: &quot;When you can't remove a step, make it almost free.&quot;</li><li>Contextual inquiry is a game changer. Having the full context of a rep's day let us identify that through-line a bit better.</li></ul>
         </section>
       </div>
   </div>

@@ -141,23 +141,41 @@ From there, a second insight locked the design in: the canvas isn't paired with 
       },
       {
         type: 'paragraph',
-        body: `Adopters: Those who successfully began using it and found value in it.
-
-What we needed to find out: Identify force multipliers — anywhere we could pour gas on the fire? Why were they able to adopt it? What exact value were they getting?`,
+        body: `**Adopters** those who successfully began using it and found value in it.`,
+      },
+      {
+        type: 'inline-text',
+        text: 'What we needed to find out:',
+      },
+      {
+        type: 'list-items',
+        items: [
+          'Identify force multipliers — anywhere we could pour gas on the fire?',
+          'Why were they able to adopt it? What exact value were they getting?',
+        ],
       },
       {
         type: 'paragraph',
-        body: `Inactive users: Those who failed to incorporate it into their workflows — new or existing.
-
-What we needed to find out: New users: what barriers kept it out of their workflow? Existing users: why didn't they return to using it?`,
+        body: `**Inactive users** those who failed to incorporate it into their workflows — new or existing.`,
+      },
+      {
+        type: 'inline-text',
+        text: 'What we needed to find out:',
+      },
+      {
+        type: 'list-items',
+        items: [
+          'New users: what barriers kept it out of their workflow?',
+          'Existing users: why didn\'t they return to using it?',
+        ],
       },
       {
         type: 'feature',
-        caption: 'Placeholder for screenshot of slide — Adopters',
+        caption: 'Emerging Insights - Adopters: [screenshot of slide]',
       },
       {
         type: 'feature',
-        caption: 'Placeholder for screenshot of slide — Inactive',
+        caption: 'Emerging Insights - Inactive: [screenshot of slide]',
       },
       {
         type: 'section',
