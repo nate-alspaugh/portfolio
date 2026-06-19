@@ -109,7 +109,13 @@ From there, a second insight locked the design in: the canvas isn't paired with 
     accent: '#e6399b',
     year: '2024',
     intro: 'Enabling Field Sales Reps to easily document their customer interactions while on the road',
-    description: 'A redesign of the Voze mobile app for field workers. Case study coming soon.',
+    description: 'A redesign of the Voze mobile app for field workers.',
+    sections: [
+      {
+        type: 'section',
+        heading: 'Problem Space',
+      },
+    ],
   },
 ];
 
