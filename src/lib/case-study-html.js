@@ -12,6 +12,8 @@ export function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
+
+
 function renderItems(items) {
   if (!items || !items.length) return '';
   const lis = items.map((item) => `<li>${escapeHtml(item)}</li>`).join('');

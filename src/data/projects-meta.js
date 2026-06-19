@@ -108,12 +108,97 @@ From there, a second insight locked the design in: the canvas isn't paired with 
     title: 'Voze — Mobile App Redesign',
     accent: '#e6399b',
     year: '2024',
-    intro: 'Enabling Field Sales Reps to easily document their customer interactions while on the road',
+    intro: 'Voze is a 20+ year-old voice-first CRM that lets field reps in heavy-duty trucking and parts sales document customer interactions by voice. These reps aren\'t at a desk — they drive planned routes while fielding inbound calls from other customers, and depending on the industry, sometimes handle parts delivery too. That leaves little time or mental energy to document their interactions. They also work closely with other teams like inside sales, fulfillment, and their managers.',
     description: 'A redesign of the Voze mobile app for field workers.',
     sections: [
       {
         type: 'section',
-        heading: 'Problem Space',
+        heading: 'Background',
+        body: 'Voze\'s archaic codebase was riddled with bugs and experience issues that were starting to get in the way of growth — a big problem once you\'ve taken on VC investment. To gauge the impact, my PM reviewed every ticket labeled "bug" for the quarter and found 60%+ of our effort went there instead of new feature work. Leadership decided to rewrite the mobile app as a first step to overhaul the code and fix those bugs, and had our team address any UX issues we could along the way. We had about a month to finish the designs so engineers had the rest of the time to build (a quarter total to ship).',
+      },
+      {
+        type: 'section',
+        heading: 'Goals',
+        items: [
+          'Refresh the general style of the app',
+          'Find prominent UX issues, then determine which levers gave us the most "bang for our buck" to focus the redesign',
+        ],
+      },
+      {
+        type: 'section',
+        heading: 'Discovery — Internal',
+        body: 'We knew there were problems, but wanted to understand how they affected our team members, so we talked with teams across the company. We also wanted a sense of how it was affecting our customers.\n\nWhat we needed to find out:\n- What existing UX issues were prevalent?\n- How was it affecting our company?\n- What teams were being affected?\n\nEmerging insights:\n- Customer churn — clients left to find alternatives, straining our CX team\n- Deals getting dropped — sales couldn\'t reliably demo to prospects; mid-demo snags\n- Mixed bag of retention — many failed to adopt the app, but those who did loved it\n- Strained engineering — lots of resources spent on bugs',
+      },
+      {
+        type: 'callout',
+        eyebrow: 'Key Takeaway',
+        body: 'Mixed bag of retention — why did some adopt it and love it while others failed to?',
+      },
+      {
+        type: 'section',
+        heading: 'Discovery — Users',
+        body: `This clue showed our users falling into a couple of camps:`,
+      },
+      {
+        type: 'paragraph',
+        body: `Adopters: Those who successfully began using it and found value in it.
+
+What we needed to find out: Identify force multipliers — anywhere we could pour gas on the fire? Why were they able to adopt it? What exact value were they getting?`,
+      },
+      {
+        type: 'paragraph',
+        body: `Inactive users: Those who failed to incorporate it into their workflows — new or existing.
+
+What we needed to find out: New users: what barriers kept it out of their workflow? Existing users: why didn't they return to using it?`,
+      },
+      {
+        type: 'feature',
+        caption: 'Placeholder for screenshot of slide — Adopters',
+      },
+      {
+        type: 'feature',
+        caption: 'Placeholder for screenshot of slide — Inactive',
+      },
+      {
+        type: 'section',
+        heading: 'Prioritization',
+        body: 'Based on what we found, we focused on the "Note Creation" flow. To get the biggest bang for our buck, this area had the most surface that touched both optimization and adoption issues.',
+      },
+      {
+        type: 'section',
+        heading: 'Ideation — Brainstorming',
+        body: 'HMW: Make it easy for reps to quickly create a voice note?',
+        items: [
+          'Leverage AI to handle the metadata (label their notes)',
+          'Unified flow — no up-front branching between note types (type vs voice)',
+          'Slash any underused functionality',
+        ],
+      },
+      {
+        type: 'feature',
+        caption: 'Before — existing voice note flow',
+      },
+      {
+        type: 'feature',
+        caption: 'After — new unified note creation flow',
+      },
+      {
+        type: 'section',
+        heading: 'Demo Feedback',
+        body: 'We showcased the flow for impression testing with some adopters and inactive users. Here are the insights we initially got:',
+      },
+      {
+        type: 'feature',
+        caption: 'Placeholder for screenshot of demo highlights',
+      },
+      {
+        type: 'section',
+        heading: 'Conclusion — Takeaways',
+        items: [
+          "While I wasn't with the company at release, I stayed connected with Andrew. The launch was well received based on early feedback.",
+          'Dealing with constraints. We couldn\'t leverage automation for everything we\'d like, so making the manual path easier was the next best thing: "When you can\'t remove a step, make it almost free."',
+          'Contextual inquiry is a game changer. Having the full context of a rep\'s day let us identify that through-line a bit better.',
+        ],
       },
     ],
   },
