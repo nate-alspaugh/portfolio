@@ -12,6 +12,10 @@ export function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
+export function processBoldMarkers(str) {
+  return str.replace(/\*\*(.*?)\*\*/g, '<span class="bold-text">$1</span>');
+}
+
 function renderItems(items) {
   if (!items || !items.length) return '';
   const lis = items.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
@@ -33,10 +37,14 @@ function renderSection(section) {
     case 'paragraph':
       return `
         <div class="cs-paragraph">
-          <p class="cs-paragraph-body">${escapeHtml(section.body)}</p>
+          <p class="cs-paragraph-body">${processBoldMarkers(section.body).replace(/\n/g, '<br>')}</p>
           ${renderItems(section.items)}
         </div>
       `;
+    case 'inline-text':
+      return `<p class="inlineSubheading"><em><strong>${escapeHtml(section.text)}</strong></em></p>`;
+    case 'list-items':
+      return renderItems(section.items);
     case 'callout':
       return `
         <aside class="cs-callout">

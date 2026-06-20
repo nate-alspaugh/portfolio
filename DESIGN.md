@@ -38,6 +38,11 @@ typography:
     fontFamily: Geist Mono
     fontSize: 0.85rem
     lineHeight: 1.6
+  boldText:
+    fontFamily: Geist Mono
+    fontWeight: 600
+    fontSize: 0.95rem
+    lineHeight: 1.7
   eyebrow:
     fontFamily: Geist Mono
     fontSize: 0.75rem

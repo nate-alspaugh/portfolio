@@ -397,6 +397,22 @@ case-study-page .cs-section-list li::marker {
   color: rgba(255, 255, 255, 0.35);
 }
 
+case-study-page .bold-text {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #fff;
+}
+
+case-study-page .inlineSubheading {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  font-weight: bold;
+  margin: 12px 0 0;
+  color: #fff;
+}
+
 case-study-page .cs-callout {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
