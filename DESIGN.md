@@ -110,7 +110,13 @@ Heading sizes use `clamp()` with a viewport term so the same token spans hero an
 
 The home page is a 3-column grid (`372px / auto / 408px`) capped at `1400px`, collapsing to a 2-column then 1-column stack at `1024px` and `767px`. Side columns push their content down by `clamp(110px, 22vh, 200px)` to align to the key card's vertical center — that offset is intentional and should not be normalized away.
 
-Case study content is centered in a `960px` column with `120px` top padding. Use the spacing scale (`xs`–`3xl`) for gaps between sections; ad-hoc pixel values are fine inside a component but should not appear at the page level.
+Case study content is centered in a `960px` column with `120px` top padding. Use the spacing scale (`xs`–`3xl`) for gaps between sections; ad-hoc pixel values are fine inside a component but should not appear at the page level. The scale is exposed in CSS as `--space-xs` … `--space-3xl` — reference the variables for page-level spacing rather than retyping the raw px.
+
+Case study sections follow a three-tier vertical rhythm rather than a flat gap, so groupings read intentionally:
+
+- **`3xl` (80px) before a new topic heading** — a `cs-section` (the only block with an `<h2>`) gets an extra `xl` on top of the base gap, signalling a new section.
+- **`2xl` (48px) default** between mixed blocks (text, callouts, bare images).
+- **`lg` (24px) between adjacent media cards** — consecutive `cs-feature` cards (including carousels) tighten into a gallery run.
 
 ## Elevation & Depth
 

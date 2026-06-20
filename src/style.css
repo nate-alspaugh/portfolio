@@ -65,6 +65,15 @@
   --font-geist-mono: 'Geist Mono', ui-monospace, SFMono-Regular, 'Roboto Mono', Menlo, Monaco, 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
   --font-geist-pixel: 'Geist Pixel Square', 'Geist Mono', monospace;
   --font-pirata: 'Pirata One', serif;
+
+  /* Spacing scale — mirrors DESIGN.md `spacing` tokens. Use these for page-level gaps. */
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 80px;
 }
 
 body {
@@ -277,7 +286,7 @@ case-study-page .cs-title {
   font-weight: 600;
   font-size: clamp(2.5rem, 7vw, 4.5rem);
   line-height: 1;
-  margin: 0 0 24px;
+  margin: 0 0 var(--space-lg);
   color: #fff;
 }
 
@@ -285,7 +294,7 @@ case-study-page .cs-intro {
   font-size: 0.95rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 48px;
+  margin: 0 0 var(--space-2xl);
   white-space: pre-line;
 }
 
@@ -294,7 +303,7 @@ case-study-page .cs-hero-image {
   width: 100%;
   height: auto;
   border-radius: 16px;
-  margin: 0 0 48px;
+  margin: 0 0 var(--space-2xl);
 }
 
 case-study-page .cs-coming-soon {
@@ -311,7 +320,25 @@ case-study-page .cs-coming-soon {
 case-study-page .cs-sections {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: var(--space-2xl);
+}
+
+/* Vertical rhythm tiers (see DESIGN.md › Layout):
+   extra breath before a new topic heading — 48 + 32 = 80px. */
+case-study-page .cs-sections > * + .cs-section {
+  margin-top: var(--space-xl);
+}
+
+/* Adjacent media cards group as a gallery run — 48 − 24 = 24px between them. */
+case-study-page .cs-sections > .cs-feature + .cs-feature {
+  margin-top: calc(-1 * var(--space-lg));
+}
+
+/* Paragraph block: intro line + its list read as one grouped flex child. */
+case-study-page .cs-paragraph {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
 }
 
 case-study-page .cs-hero-placeholder {
@@ -333,7 +360,7 @@ case-study-page .cs-hero-placeholder {
 case-study-page .cs-section {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-md);
 }
 
 case-study-page .cs-section-heading {
@@ -358,7 +385,7 @@ case-study-page .cs-section-list {
   font-size: 0.95rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.7);
-  margin: 12px 0 0;
+  margin: 0;
   padding-left: 1.25rem;
 }
 
@@ -584,7 +611,7 @@ case-study-page .cs-carousel-dot.active {
 }
 
 case-study-page .cs-back-rail {
-  margin-bottom: 32px;
+  margin-bottom: var(--space-xl);
 }
 
 case-study-page .cs-back {

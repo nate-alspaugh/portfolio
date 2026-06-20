@@ -32,8 +32,10 @@ function renderSection(section) {
       `;
     case 'paragraph':
       return `
-        <p class="cs-paragraph-body">${escapeHtml(section.body)}</p>
-        ${renderItems(section.items)}
+        <div class="cs-paragraph">
+          <p class="cs-paragraph-body">${escapeHtml(section.body)}</p>
+          ${renderItems(section.items)}
+        </div>
       `;
     case 'callout':
       return `

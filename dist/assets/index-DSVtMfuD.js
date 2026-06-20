@@ -928,8 +928,10 @@ From there, a second insight locked the design in: the canvas isn't paired with 
           ${pa(e.items)}
         </section>
       `;case`paragraph`:return`
-        <p class="cs-paragraph-body">${$(e.body)}</p>
-        ${pa(e.items)}
+        <div class="cs-paragraph">
+          <p class="cs-paragraph-body">${$(e.body)}</p>
+          ${pa(e.items)}
+        </div>
       `;case`callout`:return`
         <aside class="cs-callout">
           ${e.eyebrow?`<div class="cs-callout-eyebrow">${$(e.eyebrow)}</div>`:``}
