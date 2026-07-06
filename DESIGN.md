@@ -122,6 +122,7 @@ Case study sections follow a three-tier vertical rhythm rather than a flat gap, 
 - **`3xl` (80px) before a new topic heading** — a `cs-section` (the only block with an `<h2>`) gets an extra `xl` on top of the base gap, signalling a new section.
 - **`2xl` (48px) default** between mixed blocks (text, callouts, bare images).
 - **`lg` (24px) between adjacent media cards** — consecutive `cs-feature` cards (including carousels) tighten into a gallery run.
+- **`md`/`sm` (16px / 12px) inside a sub-group** — an `inline-text` subheading hugs its lead-in paragraph (`md`) and its following `list-items` list (`sm`), so a "subheading + its list" cluster reads as one unit while the `2xl` gap still separates clusters. A `cs-feature-heading` likewise hugs the `cs-feature` card beneath it (`sm`), so the label + card read as one group.
 
 ## Elevation & Depth
 
@@ -141,7 +142,7 @@ Four radius tokens cover everything: `sm` for inline cards and callouts, `md` fo
 
 - **`<key-card>`** — the holographic centerpiece. Owns its own shader, tilt, and haptics; do not restyle from outside.
 - **`<home-bio>`, `<work-list>`, `<contact-links>`** — light/shadow DOM hybrids; visible content lives in shadow, with a `.seo-fallback` clone in light DOM for crawlers. Keep both in sync when editing copy.
-- **`case-study-page`** — light DOM, served via the prerender plugin. Class names are namespaced `cs-*`. Variants: `cs-section`, `cs-feature`, `cs-callout`, `cs-carousel`, `cs-bare-image`.
+- **`case-study-page`** — light DOM, served via the prerender plugin. Class names are namespaced `cs-*`. Variants: `cs-section`, `cs-feature`, `cs-callout`, `cs-carousel`, `cs-bare-image`. A `cs-feature` card may be preceded by an optional `cs-feature-heading` (Panchang, `heading-section` token) that sits *outside* the card as a label above it, in place of a below-media `cs-feature-caption`.
 - **`<main-nav>`** — top navigation. Active links use the chartreuse accent.
 - **`<foil-tweaker>`** — dev-only panel for tuning the key card's foil parameters; gated, not part of production UI.
 

@@ -1,4 +1,8 @@
 import vozeHero from '../assets/voze-dribble-shot.png';
+import vozeBeforeFlow from '../assets/voze-before-flow.mp4';
+import vozeEmergingInsightsAdopters from '../assets/voze-emerging-insights-adopters.png';
+import vozeEmergingInsightsInactive from '../assets/voze-emerging-insights-inactive.png';
+import vozeDemoFeedbackHighlights from '../assets/voze-demo-feedback-highlights.png';
 import componentForgeHero from '../assets/component-forge-hero-shot.jpg';
 import particleCanvasBase from '../assets/canvas-base.mp4';
 import particleAnnotationFeatures from '../assets/annotation-features.mp4';
@@ -45,6 +49,12 @@ const projectAssets = {
   },
   'voze-mobile-app-redesign': {
     heroImage: vozeHero,
+    sections: {
+      11: { image: vozeEmergingInsightsAdopters },
+      12: { image: vozeEmergingInsightsInactive },
+      15: { video: vozeBeforeFlow },
+      18: { image: vozeDemoFeedbackHighlights },
+    },
   },
 };
 

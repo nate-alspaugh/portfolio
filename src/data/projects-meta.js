@@ -110,7 +110,7 @@ From there, a second insight locked the design in: the canvas isn't paired with 
     year: '2024',
     intro: 'Voze is a 20+ year-old voice-first CRM that lets field reps in heavy-duty trucking and parts sales document customer interactions by voice. These reps aren\'t at a desk — they drive planned routes while fielding inbound calls from other customers, and depending on the industry, sometimes handle parts delivery too. That leaves little time or mental energy to document their interactions. They also work closely with other teams like inside sales, fulfillment, and their managers.',
     description: 'A redesign of the Voze mobile app for field workers.',
-    comingSoon: true,
+    comingSoon: false,
     sections: [
       {
         type: 'section',
@@ -172,11 +172,11 @@ From there, a second insight locked the design in: the canvas isn't paired with 
       },
       {
         type: 'feature',
-        caption: 'Emerging Insights - Adopters: [screenshot of slide]',
+        heading: 'Emerging insights — Adopters',
       },
       {
         type: 'feature',
-        caption: 'Emerging Insights - Inactive: [screenshot of slide]',
+        heading: 'Emerging insights — Inactive',
       },
       {
         type: 'section',
@@ -208,7 +208,7 @@ From there, a second insight locked the design in: the canvas isn't paired with 
       },
       {
         type: 'feature',
-        caption: 'Placeholder for screenshot of demo highlights',
+        caption: 'Demo feedback highlights from impression testing',
       },
       {
         type: 'section',

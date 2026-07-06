@@ -334,11 +334,26 @@ case-study-page .cs-sections > .cs-feature + .cs-feature {
   margin-top: calc(-1 * var(--space-lg));
 }
 
+/* A feature heading labels the card beneath it — keep them tight as one group. */
+case-study-page .cs-sections > .cs-feature-heading + .cs-feature {
+  margin-top: calc(var(--space-sm) - var(--space-2xl));
+}
+
 /* Paragraph block: intro line + its list read as one grouped flex child. */
 case-study-page .cs-paragraph {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+}
+
+/* "Subheading + its list" (inline-text + list-items) read as one group:
+   pull the lead-in→subheading gap to 16px and subheading→list to 12px, so a
+   sub-topic clusters while the 48px between groups still separates them. */
+case-study-page .cs-sections > .inlineSubheading {
+  margin-top: calc(var(--space-md) - var(--space-2xl));
+}
+case-study-page .cs-sections > .inlineSubheading + .cs-section-list {
+  margin-top: calc(var(--space-sm) - var(--space-2xl));
 }
 
 case-study-page .cs-hero-placeholder {
@@ -409,7 +424,7 @@ case-study-page .inlineSubheading {
   font-size: 1.1rem;
   line-height: 1.5;
   font-weight: bold;
-  margin: 12px 0 0;
+  margin: 0;
   color: #fff;
 }
 
@@ -496,6 +511,16 @@ case-study-page video.cs-feature-image {
   aspect-ratio: auto;
   background: none;
   object-fit: contain;
+}
+
+case-study-page .cs-feature-heading {
+  font-family: 'Panchang', sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.15;
+  margin: 0;
+  padding: 0 8px;
+  color: #fff;
 }
 
 case-study-page .cs-feature-caption {

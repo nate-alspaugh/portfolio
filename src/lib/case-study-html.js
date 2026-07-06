@@ -72,7 +72,9 @@ function renderSection(section) {
         media = `<img class="cs-feature-image" src="${section.image}" alt="${escapeHtml(section.caption ?? section.label ?? '')}"${ratio} />`;
       }
       // No media (prerender / text-only): render caption-only figure so crawlers see context.
+      // Heading sits outside the figure container so it reads as a label above the card.
       return `
+        ${section.heading ? `<h3 class="cs-feature-heading">${escapeHtml(section.heading)}</h3>` : ''}
         <figure class="cs-feature">
           ${media}
           ${section.caption ? `<figcaption class="cs-feature-caption">${escapeHtml(section.caption)}</figcaption>` : ''}
